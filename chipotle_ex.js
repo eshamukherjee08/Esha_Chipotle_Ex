@@ -195,24 +195,22 @@ function show_options() {
 /*clearing pre selected items in case of change of choice of item.*/
 var radio_block2 = $("input[name='kids_meat']");
 for (var i=0; i<radio_block2.length; i++) {
-	$(radio_block2[i]).bind('click', clear_selected_options);
+ $(radio_block2[i]).bind('click', clear_selected_options);
 }
-
 function clear_selected_options(){
   var options = $("#what_inside").find("input");
   for (var i=0; i<options.length; i++) {
   	options[i].checked = false;
   }
+  $("#nutri_table").find("tr[id ^='what_item']").remove();
+  addition_of_nutrition();
 }
 
 
 
 
 /*Checking condition of item selection of 2(in case of meat) or 3 (in case of veggie) for kids menu.*/
-var a = $("#what_inside").find("input");
-for (var i=0; i<a.length; i++) {
-	$(a[i]).bind('click', check_selected_options);
-}
+$("#what_inside").delegate("input", 'click', check_selected_options);
 
 function check_selected_options() {
   var radio_selected = $("input[name='kids_meat']");
@@ -291,27 +289,12 @@ function clear_selections_kid_block() {
 
 
 /*binding function on click to add menu items.*/
-var adult_menu_options = $("#adult_menu_options").find("input");
-for (var i=0; i<adult_menu_options.length; i++) {
-  $(adult_menu_options[i]).bind('click', add_nutri_adult);
-}
-var adult_regular_menu = $("#adult_regular_menu").find("input");
-for (var i=0; i<adult_regular_menu.length; i++) {
-  $(adult_regular_menu[i]).bind('click', add_nutri_adult);
-}
-var kids_regular_menu = $("#kids_regular_menu").find("input");
-for (var i=0; i<kids_regular_menu.length; i++) {
-  $(kids_regular_menu[i]).bind('click', add_nutri_kids);
-}
-var kids_third_menu = $("#kids_third_menu").find("input");
-for (var i=0; i<kids_third_menu.length; i++) {
-  $(kids_third_menu[i]).bind('click', add_nutri_kids);
-}
-var kids_menu_options = $("#kids_menu_options").find("input");
-for (var i=0; i<kids_menu_options.length; i++) {
-  $(kids_menu_options[i]).bind('click', add_nutri_kids);
-}
 
+$("#adult_menu_options").delegate("input", 'click', add_nutri_adult);
+$("#adult_regular_menu").delegate("input", 'click', add_nutri_adult);
+$("#kids_regular_menu").delegate("input", 'click', add_nutri_kids);
+$("#kids_third_menu").delegate("input", 'click', add_nutri_kids);
+$("#kids_menu_options").delegate("input", 'click', add_nutri_kids);
 
 
 /*marking pre selected options as checked.*/
@@ -793,10 +776,10 @@ function add_data_to_table(name_of_item,row_id) {
 
 /*adding data to nutrition table for adults*/
 function add_data_to_adult_table(name_of_item,row_id) {
-  if (name_of_item[0] == "Flour Tortilla (burrito)" || name_of_item[0] == "Romaine Lettuce (salad)"){
-    multiplier = 1;
-  } else {
+  if (name_of_item[0] == "Crispy Taco Shell" || name_of_item[0] == "Flour Tortilla (taco)" || name_of_item[0] == "Soft Corn Tortilla"){
     multiplier = 3;
+  } else {
+    multiplier = 1;
   }
   for(var j=0; j<28; j++) {
     for(var k=0; k<name_of_item.length; k++) {
@@ -867,8 +850,7 @@ function add_data_to_adult_table(name_of_item,row_id) {
 
 /*Removing unchecked or changed item from nutrition table.*/
 function remove_item(element_id) {
-  var remove_row = $("#nutri_table").find("tr[id="+element_id+"]");
-  $(remove_row).remove();
+  $("#nutri_table").find("tr[id="+element_id+"]").remove();
   addition_of_nutrition();
 }
 
