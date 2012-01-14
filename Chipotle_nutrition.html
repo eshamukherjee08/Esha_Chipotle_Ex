@@ -1,0 +1,304 @@
+<html>
+<head>
+  <link rel="stylesheet" href="chipotle.css" />
+</head>
+<body>
+  <div class="calculator_div">
+    <div class="calculator_title">
+      <h1>NUTRITION CALCULATOR</h1>
+    </div>
+    <div class="calculator_main_bar">
+      <input type="button" id="adult_menu" value="MENU" />
+      <input type="button" id="kids_menu" value="KID'S MENU"/>
+    </div><br /><br />
+    <div class="menu_part_one">
+      <div class= "title">MENU ITEM(Pick One)</div><br />
+      <div id="adult_menu_one" class="active">
+        <div class="item1">
+          <input type="radio" name="adult_menu_item" value="BURRITO" />BURRITO
+        </div>
+        <div class="item2">
+          <input type="radio" name="adult_menu_item" value="BURRITO BOWL" />BURRITO BOWL
+        </div>
+        <div class="item3">
+          <input type="radio" name="adult_menu_item" value="TACOS" />TACOS
+        </div>
+        <div class="item4">
+          <input type="radio" name="adult_menu_item" value="SALAD" />SALAD
+        </div>
+      </div>
+      <div id="kids_menu_one" class="hide">
+        <div class="item1">
+          <input type="radio" name="kids_menu_item" value="SMALL QUESADILLA MEAL" />SMALL QUESADILLA MEAL
+        </div>
+        <div class="item2">
+          <input type="radio" name="kids_menu_item" value="SINGLE TACO MEAL" />SINGLE TACO MEAL
+        </div>
+        <div class="item3">
+          <input type="radio" name="kids_menu_item" value="TWO TACO KIT" />TWO TACO KIT
+        </div>
+      </div>
+    </div><br /><br />
+    <div class="second_section hide" id="adult_menu_options">
+      <div class="title_second">
+        <div class="title1 floater" id="tortilla">
+          <h4>TORTILLAS</h4>
+        </div>
+        <div class="title1 floater hide" id="lettuce">
+          <h4>LETTUCE</h4>
+        </div>
+        <div class="title2 floater">
+          <h4>SELECT A MEAT</h4>
+        </div>
+        <div class="title3 floater_a">
+          <h4>ADDITIONAL OPTIONS</h4>
+        </div>
+      </div>
+      <div id="for_burrito" class="hide">
+        <div class="block1">
+          <ul>
+            <li>
+              <input type="radio" id="radio_for_soft_flour_tortilla" name ="soft_flour_tortilla_selected"/>Flour Tortilla
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="for_burrito_bowl" class="hide">
+        <div class="block1">
+          <ul>
+            <li>
+              No Tortilla here
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="for_3tacos" class="hide">
+        <div class="block1">
+          <ul>
+            <li>
+              <input type="radio" id="radio_for_crispy_corn_tortilla" name="tacos_3"/>Crispy Corn Tortilla
+            </li>
+            <li>
+              <input type="radio" id="radio_for_soft_corn_tortilla" name="tacos_3"/>Soft Corn Tortilla
+            </li>
+            <li>
+              <input type="radio" id="radio_for_soft_flour_tortilla2" name="tacos_3"/>Soft Flour Tortilla
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="for_salad_bowl" class="hide">
+        <div class="block1">
+          <ul>
+            <li>
+              <input type="radio" id="radio_for_romanian_lettuce" name ="romanian_lettuce_selected"/>Romanian Lettuce
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="block2">
+        <ul>
+          <li><input type="checkbox" id="item_chicken1">Chicken</li>
+          <li><input type="checkbox" id="item_steak1">Steak</li>
+          <li><input type="checkbox" id="item_barbacoa1">Barbacoa</li>
+          <li><input type="checkbox" id="item_carnitas1">Carnitas</li>
+      </div>
+      <div class="block3">
+        <ul>
+          <li style="float:left;width:190px;"><input type="checkbox" id="item_rice1">White Rice</li>
+          <li><input type="checkbox" id="item_green_chili_salsa1">Tomatillo-Green Chili Salsa</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="item_brown_rice1">Brown Rice</li>
+          <li><input type="checkbox" id="item_red_chili_salsa1">Tomatillo-Red Chili Salsa</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="item_black_beans1">Black Beans</li>
+          <li><input type="checkbox" id="item_sour_cream1">Sour Cream</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="item_pinto_beans1">Pinto Beans</li>
+          <li><input type="checkbox" id="item_cheese1">Cheese</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="item_fajita_vegetables1">Fajita Vegetables</li>
+          <li><input type="checkbox" id="item_guacamole1">Guacamole</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="item_fresh_tomato_salsa1">Fresh Tomato Salsa</li>
+          <li><input type="checkbox" id="item_romanian_lettuce1">Romanian Lettuce</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="item_vinaigrette1">Vinaigrette</li>
+          <li><input type="checkbox" id="item_corn_salsa1">Roasted Chili Corn Salsa</li>
+        </ul>
+      </div>
+    </div>
+    <div class="regular_section hide" id="adult_regular_menu">
+      <div class="title_regular">
+        ADD CHIPS AND SALSA
+      </div>
+      <div class="items_regular">
+        <ul>
+          <li style="float:left;width:290px;"><input type="checkbox" id="item_chips1">Chips</li>
+          <li><input type="checkbox" id="item_chips_tomato_salsa1">Chips & Fresh Tomato Salsa</li>
+          <li style="float:left;width:290px;"><input type="checkbox" id="item_chips_guacamole1">Chips & Guacamole</li>
+          <li><input type="checkbox" id="item_chips_corn_salsa1">Chips & Roasted Chili-Corn Salsa</li>
+          <li style="float:left;width:290px;"><input type="checkbox" id="item_chips_green_chili_salsa1">Chips & Tomatillo-Green Chili Salsa</li>
+          <li><input type="checkbox" id="item_chips_red_chili_salsa1">Chips & Tomatillo-Red Chili Salsa</li>
+        </ul>
+      </div>
+    </div>
+    <div class="kids_second_section hide" id="kids_menu_options">
+      <div class="title_second">
+        <div class="Ktitle1 floater_k">
+          <h4>TORTILLA</h4>
+        </div>
+        <div class="Ktitle2 floater_k">
+          <h4>SELECT A MEAT</h4>
+        </div>
+        <div class="Ktitle3 floater_k_a hide" id="kids_whats_inside">
+          <h4>WHAT'S INSIDE?(Pick 2 for meat or guacamole, 3 if veggie)</h4>
+        </div>
+        <div class="Ktitle4 floater_k_b" id="kids_side_one_title">
+          <h4>1st SIDE</h4>
+        </div>
+        <div class="Ktitle5 floater_k_b" id="kids_side_two_title">
+          <h4>2nd SIDE</h4>
+        </div>
+      </div>
+      <div id="for_small_quesadilla" class="hide">
+        <div class="block1">
+          <ul>
+            <li>
+              <input type="radio" id="radio_for_soft_flour_tortilla_k0" name ="flour_tortilla_k0_selected"/>Flour Tortilla
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="for_1tacos" class="hide">
+        <div class="block1">
+          <ul>
+            <li>
+              <input type="radio" id="radio_for_crispy_corn_tortilla_k1" name="tacos_1"/>Crispy Corn Tortilla
+            </li>
+            <li>
+              <input type="radio" id="radio_for_soft_corn_tortilla_k1" name="tacos_1"/>Soft Corn Tortilla
+            </li>
+            <li>
+              <input type="radio" id="radio_for_soft_flour_tortilla_k1" name="tacos_1"/>Soft Flour Tortilla
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="for_2tacos" class="hide">
+        <div class="block1">
+          <ul>
+            <li>
+              <input type="radio" id="radio_for_crispy_corn_tortilla_k2" name="tacos_2"/>Crispy Corn Tortilla
+            </li>
+            <li>
+              <input type="radio" id="radio_for_soft_corn_tortilla_k2" name="tacos_2"/>Soft Corn Tortilla
+            </li>
+            <li>
+              <input type="radio" id="radio_for_soft_flour_tortilla_k2" name="tacos_2"/>Soft Flour Tortilla
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="block2">
+        <ul>
+          <li><input type="radio" name="kids_meat" id="item_chicken_k">Chicken</li>
+          <li><input type="radio" name="kids_meat" id="item_steak_k">Steak</li>
+          <li><input type="radio" name="kids_meat" id="item_barbacoa_k">Barbacoa</li>
+          <li><input type="radio" name="kids_meat" id="item_carnitas_k">Carnitas</li>
+          <li><input type="radio" name="kids_meat" id="item_guacamole_k">Guacamole</li>
+          <li id="kids_meat_veggies" class="hide"><input type="radio" name="kids_meat" id="item_veggies_k">Veggies</li>
+          <li id="kids_meat_cheese" class="hide"><input type="radio" name="kids_meat_cheese" id="item_chicken_k">Cheese</li>
+        </ul>
+      </div>
+      <div class="block3" id="side_one">
+        <ul>
+          <li><input type="radio" name="side_one" id="item_rice_k1">White Rice</li>
+          <li><input type="radio" name="side_one" id="item_brown_rice_k1">Brown Rice</li>
+        </ul>  
+      </div>
+      <div class="block4" id="side_two">
+        <ul>
+          <li><input type="radio" name="side_two" id="item_black_beans_k">Black Beans</li>
+          <li><input type="radio" name="side_two" id="item_pinto_beans_k">Pinto Beans</li>
+        </ul>
+      </div>
+      <div class="block5" id="what_inside">
+        <ul>
+          <li style="float:left;width:190px;"><input type="checkbox" id="what_item_rice_k2">White Rice</li>
+          <li><input type="checkbox" id="what_item_green_chili_salsa_k2">Tomatillo-Green Chili Salsa</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="what_item_brown_rice_k2">Brown Rice</li>
+          <li><input type="checkbox" id="what_item_red_chili_salsa_k2">Tomatillo-Red Chili Salsa</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="what_item_black_beans_k2">Black Beans</li>
+          <li><input type="checkbox" id="what_item_sour_cream_k2">Sour Cream</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="what_item_pinto_beans_k2">Pinto Beans</li>
+          <li><input type="checkbox" id="what_item_cheese_k2">Cheese</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="what_item_fajita_vegetables_k2">Fajita Vegetables</li>
+          <li><input type="checkbox" id="what_item_romanian_lettuce_k2">Romanian Lettuce</li>
+          <li style="float:left;width:190px;"><input type="checkbox" id="what_item_fresh_tomato_salsa_k2">Fresh Tomato Salsa</li>
+          <li><input type="checkbox" id="what_item_corn_salsa_k2">Roasted Chili Corn Salsa</li>
+        </ul>
+      </div>
+    </div>
+    <div class="kids_third_section hide" id="kids_third_menu">
+      <div class="title_third">
+        <h4>CHOOSE A SIDE OF RICE</h4>
+      </div><br>
+      <div class="items_kids_third">
+        <ul>
+          <li style="float:left;width:190px;"><input type="radio" name="side_rice" id="item_rice_side">White Rice</li>
+          <li><input type="radio" name="side_rice" id="item_brown_rice_side">Brown Rice</li>
+        </ul>
+      </div>
+    </div>
+    <div class="kids_regular_section hide" id="kids_regular_menu">
+      <div class="title_regular">
+        <h4>CHIPS (Kid's menu comes with chips)</h4>
+      </div><br>
+      <div class="items_kids_regular">
+        <ul>
+          <li><input type="radio" name="side_chips" id="item_chips_side" checked >Chips</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="nutri_calculations">
+    <table id="nutri_table">
+      <tr id="tab">
+        <th>ITEM</th>
+        <th>CALORIES</th>
+        <th>CAL FROM FAT</th>
+        <th>TOTAL FAT(g)</th>
+        <th>SATURATED FAT(g)</th>
+        <th>TRANS FAT(g)</th>
+        <th>CHOLESTEROL(mg)</th>
+        <th>SODIUM(mg)</th>
+        <th>CARBOHYDRATES(g)</th>
+        <th>DIETARY FIBER(g)</th>
+        <th>SUGAR(g)</th>
+        <th>PROTEIN(g)</th>
+        <th>VITAMIN A(%DV)</th>
+        <th>VITAMIN C(%DV)</th>
+        <th>CALCIUM(%DV)</th>
+        <th>IRON(%DV)</th>
+      </tr>
+      <tr id="tab">
+        <td>TOTALS</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+    </table>
+  </div>
+  <script type="text/javascript" src = "jquery-1.7.js" ></script>
+  <script type="text/javascript" src = "chipotle_ex.js" ></script>
+  <script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</body>
+</html>
