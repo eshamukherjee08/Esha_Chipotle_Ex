@@ -21,6 +21,7 @@ $.getJSON('kids_menu.json',function(json) {
 /*Showing Respective menu item*/
 $("#adult_menu").bind('click', show_menu);
 $("#kids_menu").bind('click', show_menu);
+
 function show_menu() {
  if (this.id == "adult_menu") {
    $("#kids_menu_one").removeClass("active");
@@ -194,7 +195,7 @@ function check_selected_options() {
   var radio_selected = $("input[name='kids_meat']");
   var a = $("#what_inside").find("input");
   for(var i=0; i<radio_selected.length; i++) {
-    if(radio_selected[i].checked == true && radio_selected[i].id == "item_veggies_k") {
+    if(radio_selected[i].checked == true && radio_selected[i].id == "item_Veggies_k") {
       count = 0;
       for (var i=0; i<a.length; i++) {
       	if(a[i].checked) {
@@ -206,7 +207,7 @@ function check_selected_options() {
   		    return;
   			}
       }
-    } else if(radio_selected[i].checked == true && radio_selected[i].id != "item_veggies_k") {
+    } else if(radio_selected[i].checked == true && radio_selected[i].id != "item_Veggies_k") {
       count = 0;
       for (var i=0; i<a.length; i++) {
       	if(a[i].checked) {
@@ -451,37 +452,45 @@ function add_nutri_kids() {
       add_data_to_table(name_of_item,row_id);
     } else if(this.checked && this.type == 'radio'){
       var name_of_item = [];
-      var row_id ="aaa";
-      // remove_item(row_id);
+      var row_id;
       if(/Chicken/.test(id)){
         name_of_item = ["Chicken "];
+        row_id = 'kids_meat';
       } else if(/Veggies/.test(id)) {
         name_of_item = ["Fajita Vegetables "];
-      } else if(/Chips/.test(id)) {
-        name_of_item = ["Chips "];
+        row_id = 'kids_meat';
       } else if(/Steak/.test(id)) {
         name_of_item = ["Steak "];
+        row_id = 'kids_meat';
       } else if(/Barbacoa/.test(id)) {
         name_of_item = ["Barbacoa "];
+        row_id = 'kids_meat';
       } else if(/Carnitas/.test(id)) {
         name_of_item = ["Carnitas "];
+        row_id = 'kids_meat';
       } else if((/White_Rice_Side/.test(id))) {
         name_of_item = ["Cilantro-Lime Rice (side)"];
+        row_id = 'side_rice';
       } else if((/Brown_Rice_Side/.test(id))) {
         name_of_item = ["Brown Rice (side)"];
+        row_id = 'side_rice';
       } else if((/Black/.test(id)) && (/Side/.test(id))) {
         name_of_item = ["Black Beans (side)"];
+        row_id = 'side_beans';
       } else if(/Pinto/.test(id) && (/Side/.test(id))) {
         name_of_item = ["Pinto Beans (side)"];
-      } else if(/Fajita/.test(id)) {
-        name_of_item = ["Fajita Vegetables "];
+        row_id = 'side_beans';
       } else if(/Guacamole/.test(id)) {
         name_of_item = ["Guacamole "];
+        row_id = 'kids_meat';
       } else if((/Crispy/.test(id))) {
         name_of_item = ["Crispy Taco Shell "];
+        row_id = 'side_taco';
       } else if((/Soft/.test(id)) && (/Tortilla/.test(id))) {
         name_of_item = ["Soft Corn Tortilla"];
+        row_id = 'side_taco';
       } 
+      remove_item(row_id);
       add_data_to_table(name_of_item, row_id);
     } else {
       remove_item(this.id);
@@ -584,19 +593,20 @@ function add_nutri_fresh_kids() {
   	$(clear_tab[i]).remove();
   }
   var name_of_item = [];
+  var row_id = [];
   var checked_data = $("#kids_menu_options").find("input:checked").length;
   var selected_data = $("#kids_menu_one").find("input:checked");
   if (selected_data[0].value == "SMALL QUESADILLA MEAL") {
     name_of_item =["Flour Tortilla (taco)","Chicken ","Cheese (small quesadilla)","Cilantro-Lime Rice (side)","Black Beans (side)","Chips "];
-  } else if (selected_data[0].value == "SINGLE TACO MEAL") {
+    row_id =['flour_taco','kids_meat','cheese_small','side_rice','side_beans','chips'];
+  } else if (selected_data[0].value == "SINGLE TACO MEAL" || selected_data[0].value == "TWO TACO KIT") {
     name_of_item = ["Crispy Taco Shell ","Chicken ","Cilantro-Lime Rice (side)","Chips "];
-  } else if (selected_data[0].value == "TWO TACO KIT") {
-    name_of_item = ["Crispy Taco Shell ","Chicken ","Cilantro-Lime Rice (side)","Chips "];
-  }
+    row_id =['side_taco','kids_meat','side_rice','chips'];
+  } 
   
   for(var j=0; j<26; j++) {
     for(var k=0; k<name_of_item.length; k++) {
-      var new_row = $("<tr></tr>");
+      var new_row = $("<tr id="+row_id[k]+"></tr>");
       if(kids_menu_list[j]["Menu_item"] == name_of_item[k] ) {
         new_cell1 = $("<td></td>")
         new_cell1.text(kids_menu_list[j]["Menu_item"]);
@@ -655,8 +665,6 @@ function add_nutri_fresh_kids() {
 }
 
 function add_data_to_table(name_of_item,row_id) {
-  alert(name_of_item);
-  alert(row_id);
   for(var j=0; j<26; j++) {
     for(var k=0; k<name_of_item.length; k++) {
       var new_row = $("<tr id="+row_id+"></tr>");
@@ -785,7 +793,6 @@ function remove_item(element_id) {
   $(remove_row).remove();
   addition_of_nutrition();
 }
-
 
 function addition_of_nutrition() {
   var total_row = $('#nutri_table tr:last');
