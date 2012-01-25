@@ -355,9 +355,12 @@ function add_nutri_adult() {
     } else if(/Carnitas/.test(id)) {
       name_of_item = ["Carnitas"];
       row_id = 'item_Carnitas1';
-    } else if(/Rice/.test(id)) {
+    } else if(/White_Rice/.test(id)) {
       name_of_item = ["Cilantro-Lime Rice"];
-      row_id = 'item_Rice1';
+      row_id = 'item_White_Rice_1';
+    } else if(/Brown_Rice/.test(id)) {
+      name_of_item = ["Cilantro-Lime Rice"];
+      row_id = 'item_Brown_Rice_1';
     } else if(/Black/.test(id)) {
       name_of_item = ["Black Beans"];
       row_id = 'item_Black_Beans1';
