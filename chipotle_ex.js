@@ -34,6 +34,7 @@ function show_menu() {
 }
 
 
+/*Toggeling between display of kids or adult menu items on respective selection.*/
 function change_visible_menu(menu_id) {
   if (menu_id == "adult_menu") {
     $("#kids_menu_one").addClass("hide");
@@ -55,6 +56,9 @@ function change_visible_menu(menu_id) {
   }
 }
 
+
+
+/*Binding functions to input elements*/
 var adult_menu_item = $("input[name='adult_menu_item']");
 for(var i=0; i<adult_menu_item.length; i++) {
   $(adult_menu_item[i]).bind('click', show_options);
@@ -71,6 +75,8 @@ for(var i=0; i<kids_menu_item.length; i++) {
   $(kids_menu_item[i]).bind('click', add_nutri_fresh_kids);
 }
 
+
+/*Displaying list of items in a particular selected menu.*/
 function show_options() {
   if (this.name == "adult_menu_item") {
     $("#adult_menu_options").removeClass("hide");
@@ -173,6 +179,10 @@ function show_options() {
   }
 }
 
+
+
+
+/*clearing pre selected items in case of change of choice of item.*/
 var radio_block2 = $("input[name='kids_meat']");
 for (var i=0; i<radio_block2.length; i++) {
 	$(radio_block2[i]).bind('click', clear_selected_options);
@@ -186,6 +196,9 @@ function clear_selected_options(){
 }
 
 
+
+
+/*Checking condition of item selection of 2(in case of meat) or 3 (in case of veggie) for kids menu.*/
 var a = $("#what_inside").find("input");
 for (var i=0; i<a.length; i++) {
 	$(a[i]).bind('click', check_selected_options);
@@ -224,6 +237,8 @@ function check_selected_options() {
 }
 
 
+
+/*clearing various selections on change.*/
 function clear_selections() {
   var checked_inputs = $("input[type='checkbox']");
   for(var i=0; i<checked_inputs.length; i++) {
@@ -263,6 +278,9 @@ function clear_selections_kid_block() {
 }
 
 
+
+
+/*binding function on click to add menu items.*/
 var adult_menu_options = $("#adult_menu_options").find("input");
 for (var i=0; i<adult_menu_options.length; i++) {
   $(adult_menu_options[i]).bind('click', add_nutri_adult);
@@ -285,6 +303,8 @@ for (var i=0; i<kids_menu_options.length; i++) {
 }
 
 
+
+/*marking pre selected options as checked.*/
 function pre_select_options() {
   var radio_select_soft_flour_tortilla = $("input[name='soft_flour_tortilla_selected']");
   radio_select_soft_flour_tortilla[0].checked = true;
@@ -310,6 +330,8 @@ function pre_select_options() {
   radio_select_side_rice[0].checked = true;
 }
 
+
+/*adding items for adult menu*/
 function add_nutri_adult() {
   var id = this.id;
   if(this.checked && this.type == 'checkbox'){
@@ -407,6 +429,9 @@ function add_nutri_adult() {
   }
 }
 
+
+
+/*adding items for kids menu*/
 function add_nutri_kids() {
     var id = this.id;
     if(this.checked && this.type == 'checkbox'){
@@ -497,6 +522,8 @@ function add_nutri_kids() {
     }
 }
 
+
+/*clearing nutrition table data*/
 function clear_tab_on_change() {
   var clear_tab = $("#nutri_table").find("tr[id!='tab']");
   for (var i=0; i<clear_tab.length; i++) {
@@ -504,6 +531,8 @@ function clear_tab_on_change() {
   }
 }
 
+
+/*clearing calculated values of nutrition table.*/
 function clear_added_values() {
   var total_row = $('#nutri_table tr:last');
   for (var j=2; j<17; j++) {
@@ -513,6 +542,8 @@ function clear_added_values() {
   }
 }
 
+
+/*adding preselected items to table for adults*/
 function add_nutri_fresh_adult() {
   var clear_tab = $("#nutri_table").find("tr[id!='tab']");
   for (var i=0; i<clear_tab.length; i++) {
@@ -587,6 +618,8 @@ function add_nutri_fresh_adult() {
   }
 }
 
+
+/*adding preselected items to table for kids*/
 function add_nutri_fresh_kids() {
   var clear_tab = $("#nutri_table").find("tr[id!='tab']");
   for (var i=0; i<clear_tab.length; i++) {
@@ -664,6 +697,8 @@ function add_nutri_fresh_kids() {
   }
 }
 
+
+/*adding data to nutrition table for kids*/
 function add_data_to_table(name_of_item,row_id) {
   for(var j=0; j<26; j++) {
     for(var k=0; k<name_of_item.length; k++) {
@@ -726,6 +761,8 @@ function add_data_to_table(name_of_item,row_id) {
   
 }
 
+
+/*adding data to nutrition table for adults*/
 function add_data_to_adult_table(name_of_item,row_id) {
   for(var j=0; j<23; j++) {
     for(var k=0; k<name_of_item.length; k++) {
@@ -788,12 +825,17 @@ function add_data_to_adult_table(name_of_item,row_id) {
   
 }
 
+
+
+/*Removing unchecked or changed item from nutrition table.*/
 function remove_item(element_id) {
   var remove_row = $("#nutri_table").find("tr[id="+element_id+"]");
   $(remove_row).remove();
   addition_of_nutrition();
 }
 
+
+/*Addition of nutrition value.*/
 function addition_of_nutrition() {
   var total_row = $('#nutri_table tr:last');
   var vals =["TOTAL",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
