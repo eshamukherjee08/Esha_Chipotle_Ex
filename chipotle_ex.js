@@ -264,23 +264,23 @@ function clear_selections_kid_block() {
 
 var adult_menu_options = $("#adult_menu_options").find("input");
 for (var i=0; i<adult_menu_options.length; i++) {
-	$(adult_menu_options[i]).bind('click', add_nutri_adult);
+  $(adult_menu_options[i]).bind('click', add_nutri_adult);
 }
 var adult_regular_menu = $("#adult_regular_menu").find("input");
 for (var i=0; i<adult_regular_menu.length; i++) {
-	$(adult_regular_menu[i]).bind('click', add_nutri_adult);
+  $(adult_regular_menu[i]).bind('click', add_nutri_adult);
 }
 var kids_regular_menu = $("#kids_regular_menu").find("input");
 for (var i=0; i<kids_regular_menu.length; i++) {
-	$(kids_regular_menu[i]).bind('click', add_nutri_kids);
+  $(kids_regular_menu[i]).bind('click', add_nutri_kids);
 }
 var kids_third_menu = $("#kids_third_menu").find("input");
 for (var i=0; i<kids_third_menu.length; i++) {
-	$(kids_third_menu[i]).bind('click', add_nutri_kids);
+  $(kids_third_menu[i]).bind('click', add_nutri_kids);
 }
 var kids_menu_options = $("#kids_menu_options").find("input");
 for (var i=0; i<kids_menu_options.length; i++) {
-	$(kids_menu_options[i]).bind('click', add_nutri_kids);
+  $(kids_menu_options[i]).bind('click', add_nutri_kids);
 }
 
 
@@ -311,122 +311,181 @@ function pre_select_options() {
 
 function add_nutri_adult() {
   var id = this.id;
-  var name_of_item = [];
-  if(/Chicken/.test(id)){
-    name_of_item = ["Chicken"];
-  } else if(/Vinaigrette/.test(id)) {
-    name_of_item = ["Vinaigrette"];
-  } else if(/Chips/.test(id)) {
-    name_of_item = ["Chips"];
-  } else if(/Steak/.test(id)) {
-    name_of_item = ["Steak"];
-  } else if(/Barbacoa/.test(id)) {
-    name_of_item = ["Barbacoa"];
-  } else if(/Carnitas/.test(id)) {
-    name_of_item = ["Carnitas"];
-  } else if(/Rice/.test(id)) {
-    name_of_item = ["Cilantro-Lime Rice"];
-  } else if(/Black/.test(id)) {
-    name_of_item = ["Black Beans"];
-  } else if(/Pinto/.test(id)) {
-    name_of_item = ["Pinto Beans"];
-  } else if(/Fajita/.test(id)) {
-    name_of_item = ["Fajita Vegetables"];
-  } else if((/Fresh/.test(id)) && (/Tomato/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Fresh Tomato Salsa "];
-  } else if(/Cheese/.test(id)) {
-    name_of_item = ["Cheese"];
-  } else if(/Sour/.test(id)) {
-    name_of_item = ["Sour Cream"];
-  } else if((/Green/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Tomatillo-Green Chili Salsa"];
-  } else if((/Red/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Tomatillo-Red Chili Salsa"];
-  } else if((/Romaine/.test(id)) && (/Lettuce/.test(id)) && (/Salad/.test(id))) {
-    name_of_item = ["Romaine Lettuce (salad)"];
-  } else if((/Romaine/.test(id)) && (/Lettuce/.test(id))) {
-    name_of_item = ["Romaine Lettuce (tacos)"];
-  } else if(/Guacamole/.test(id)) {
-    name_of_item = ["Guacamole"];
-  } else if((/Chili/.test(id)) && (/Corn/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Roasted Chili-Corn Salsa "];
-  } else if((/Crispy/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
-    name_of_item = ["Crispy Taco Shell"];
-  } else if((/Chips/.test(id)) && (/Guacamole/.test(id))) {
-    name_of_item = ["Chips","Guacamole"];
-  } else if((/Soft/.test(id)) && (/Flour/.test(id)) && (/Tortilla/.test(id))) {
-    name_of_item = ["Flour Tortilla (burrito)"];
-  } else if((/Soft/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
-    name_of_item = ["Soft Corn Tortilla"];
-  } else if((/Soft/.test(id)) && (/Taco/.test(id)) && (/Tortilla/.test(id))) {
-    name_of_item = ["Flour Tortilla (taco)"];
-  } else if((/Chips/.test(id)) && (/Green/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Chips","Tomatillo-Green Chili Salsa"];
-  } else if((/Chips/.test(id)) && (/Red/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Chips","Tomatillo-Red Chili Salsa"];
-  } else if((/Chips/.test(id)) && (/Fresh/.test(id)) && (/Tomato/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Chips","Fresh Tomato Salsa "];
-  } else if((/Chips/.test(id)) && (/Corn/.test(id)) && (/Salsa/.test(id))) {
-    name_of_item = ["Chips","Roasted Chili-Corn Salsa "];
+  if(this.checked && this.type == 'checkbox'){
+    var name_of_item = [];
+    var row_id;
+    if(/Chicken/.test(id)){
+      name_of_item = ["Chicken"];
+      row_id = 'item_Chicken1';
+    } else if(/Vinaigrette/.test(id)) {
+      name_of_item = ["Vinaigrette"];
+      row_id = 'item_Vinaigrette1';
+    } else if(/Chips_1/.test(id)) {
+      name_of_item = ["Chips"];
+      row_id = 'item_Chips_1';
+    } else if(/Steak/.test(id)) {
+      name_of_item = ["Steak"];
+      row_id = 'item_Steak1';
+    } else if(/Barbacoa/.test(id)) {
+      name_of_item = ["Barbacoa"];
+      row_id = 'item_Barbacoa1';
+    } else if(/Carnitas/.test(id)) {
+      name_of_item = ["Carnitas"];
+      row_id = 'item_Carnitas1';
+    } else if(/Rice/.test(id)) {
+      name_of_item = ["Cilantro-Lime Rice"];
+      row_id = 'item_Rice1';
+    } else if(/Black/.test(id)) {
+      name_of_item = ["Black Beans"];
+      row_id = 'item_Black_Beans1';
+    } else if(/Pinto/.test(id)) {
+      name_of_item = ["Pinto Beans"];
+      row_id = 'item_Pinto_Beans1';
+    } else if(/Fajita/.test(id)) {
+      name_of_item = ["Fajita Vegetables"];
+      row_id = 'item_Fajita_Vegetables1';
+    } else if((/Fresh/.test(id)) && (/Tomato/.test(id)) && (/Salsa/.test(id))) {
+      name_of_item = ["Fresh Tomato Salsa "];
+      row_id = 'item_Fresh_Tomato_Salsa1';
+    } else if(/Cheese/.test(id)) {
+      name_of_item = ["Cheese"];
+      row_id = 'item_Cheese1';
+    } else if(/Sour/.test(id)) {
+      name_of_item = ["Sour Cream"];
+      row_id = 'item_Sour_Cream1';
+    } else if((/Green_Chili_Salsa/.test(id))) {
+      name_of_item = ["Tomatillo-Green Chili Salsa"];
+      row_id = 'item_Green_Chili_Salsa_1';
+    } else if((/Red_Chili_Salsa/.test(id))) {
+      name_of_item = ["Tomatillo-Red Chili Salsa"];
+      row_id = 'item_Red_Chili_Salsa_1';
+    } else if((/Romaine/.test(id)) && (/Lettuce/.test(id))) {
+      name_of_item = ["Romaine Lettuce (tacos)"];
+      row_id = 'item_Romaine_Lettuce1';
+    } else if(/Guacamole_1/.test(id)) {
+      name_of_item = ["Guacamole"];
+      row_id = 'item_Guacamole_1';
+    } else if((/Chili/.test(id)) && (/Corn/.test(id)) && (/Salsa/.test(id))) {
+      name_of_item = ["Roasted Chili-Corn Salsa "];
+      row_id = 'item_Chili_Corn_Salsa1';
+    } else if((/Chips_And_Guacamole/.test(id))) {
+      name_of_item = ["Chips","Guacamole"];
+      row_id = 'item_Chips_And_Guacamole';
+    } else if((/Chips_Chili_Salsa_Green/.test(id))) {
+      name_of_item = ["Chips","Tomatillo-Green Chili Salsa"];
+      row_id = 'item_Chips_Chili_Salsa_Green_1';
+    } else if((/Chips_Chili_Salsa_Red/.test(id))) {
+      name_of_item = ["Chips","Tomatillo-Red Chili Salsa"];
+      row_id = 'item_Chips_Chili_Salsa_Red_1';
+    } else if((/Chips_Tomato_Salsa/.test(id))) {
+      name_of_item = ["Chips","Fresh Tomato Salsa "];
+      row_id = 'item_Chips_Tomato_Salsa_1';
+    } else if((/Chips/.test(id)) && (/Corn/.test(id)) && (/Salsa/.test(id))) {
+      name_of_item = ["Chips","Roasted Chili-Corn Salsa "];
+      row_id = 'item_Chips_Corn_Salsa1';
+    }
+    add_data_to_adult_table(name_of_item, row_id);
+  } else if(this.checked && this.type == 'radio'){
+    var name_of_item = [];
+    var row_id ="radio_item";
+    remove_item(row_id);
+    if((/Romaine/.test(id)) && (/Lettuce/.test(id)) && (/Salad/.test(id))) {
+      name_of_item = ["Romaine Lettuce (salad)"];
+    } else if((/Crispy/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
+      name_of_item = ["Crispy Taco Shell"];
+    } else if((/Soft/.test(id)) && (/Flour/.test(id)) && (/Tortilla/.test(id))) {
+      name_of_item = ["Flour Tortilla (burrito)"];
+    } else if((/Soft/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
+      name_of_item = ["Soft Corn Tortilla"];
+    } else if((/Soft/.test(id)) && (/Taco/.test(id)) && (/Tortilla/.test(id))) {
+      name_of_item = ["Flour Tortilla (taco)"];
+    }
+    add_data_to_adult_table(name_of_item, row_id);
+  }else {
+    remove_item(this.id);
   }
-  add_data_to_table(name_of_item);
 }
 
 function add_nutri_kids() {
     var id = this.id;
-    var name_of_item = [];
-    if(/Chicken/.test(id)){
-      name_of_item = ["Chicken "];
-    } else if(/Veggies/.test(id)) {
-      name_of_item = ["Fajita Vegetables "];
-    } else if(/Chips/.test(id)) {
-      name_of_item = ["Chips "];
-    } else if(/Steak/.test(id)) {
-      name_of_item = ["Steak "];
-    } else if(/Barbacoa/.test(id)) {
-      name_of_item = ["Barbacoa "];
-    } else if(/Carnitas/.test(id)) {
-      name_of_item = ["Carnitas "];
-    } else if((/Rice/.test(id)) && (/Taco/.test(id))) {
-      name_of_item = ["Cilantro-Lime Rice (taco)"];
-    } else if((/Rice/.test(id)) && (/Side/.test(id))) {
-      name_of_item = ["Cilantro-Lime Rice (side)"];
-    } else if((/Brown/.test(id)) && (/Taco/.test(id))) {
-      name_of_item = ["Brown Rice (taco)"];
-    } else if((/Brown/.test(id)) && (/Side/.test(id))) {
-      name_of_item = ["Brown Rice (side)"];
-    } else if((/Black/.test(id)) && (/Taco/.test(id))) {
-      name_of_item = ["Black Beans (taco)"];
-    } else if(/Pinto/.test(id) && (/Taco/.test(id))) {
-      name_of_item = ["Pinto Beans (taco)"];
-    } else if((/Black/.test(id)) && (/Side/.test(id))) {
-      name_of_item = ["Black Beans (side)"];
-    } else if(/Pinto/.test(id) && (/Side/.test(id))) {
-      name_of_item = ["Pinto Beans (side)"];
-    } else if(/Fajita/.test(id)) {
-      name_of_item = ["Fajita Vegetables "];
-    } else if((/Fresh/.test(id)) && (/Tomato/.test(id)) && (/Salsa/.test(id))) {
-      name_of_item = ["Fresh Tomato Salsa "];
-    } else if(/Cheese/.test(id)) {
-      name_of_item = ["Cheese"];
-    } else if(/Sour/.test(id)) {
-      name_of_item = ["Sour Cream "];
-    } else if((/Green/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
-      name_of_item = ["Tomatillo-Green Chili Salsa"];
-    } else if((/Red/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
-      name_of_item = ["Tomatillo-Red Chili Salsa"];
-    } else if((/Romaine/.test(id)) && (/Lettuce/.test(id))) {
-      name_of_item = ["Romaine Lettuce (taco) "];
-    } else if(/Guacamole/.test(id)) {
-      name_of_item = ["Guacamole "];
-    } else if((/Chili/.test(id)) && (/Corn/.test(id)) && (/Salsa/.test(id))) {
-      name_of_item = ["Roasted Chili-Corn Salsa "];
-    } else if((/Crispy/.test(id))) {
-      name_of_item = ["Crispy Taco Shell "];
-    } else if((/Soft/.test(id)) && (/Tortilla/.test(id))) {
-      name_of_item = ["Soft Corn Tortilla"];
-    } 
-    add_data_to_table(name_of_item);
+    if(this.checked && this.type == 'checkbox'){
+      var name_of_item = [];
+      var row_id;
+      if(/White_Rice/.test(id)){
+        name_of_item = ["Cilantro-Lime Rice (taco)"];
+        row_id = 'what_item_White_Rice_k2';
+      } else if((/Brown_Rice/.test(id))) {
+        name_of_item = ["Brown Rice (taco)"];
+        row_id = 'what_item_Brown_Rice_k2';
+      } else if((/Black/.test(id)) && (/Taco/.test(id))) {
+        name_of_item = ["Black Beans (taco)"];
+        row_id = 'what_item_Black_Beans_Taco_k2';
+      } else if(/Pinto/.test(id) && (/Taco/.test(id))) {
+        name_of_item = ["Pinto Beans (taco)"];
+        row_id = 'what_item_Pinto_Beans_Taco_k2';
+      } else if(/Fajita/.test(id)) {
+        name_of_item = ["Fajita Vegetables "];
+        row_id = 'what_item_Fajita_Vegetables_k2';
+      } else if((/Fresh/.test(id)) && (/Tomato/.test(id)) && (/Salsa/.test(id))) {
+        name_of_item = ["Fresh Tomato Salsa "];
+        row_id = 'what_item_Fresh_Tomato_Salsa_k2';
+      } else if(/Cheese/.test(id)) {
+        name_of_item = ["Cheese"];
+        row_id = 'what_item_Cheese_k2';
+      } else if(/Sour/.test(id)) {
+        name_of_item = ["Sour Cream "];
+        row_id = 'what_item_Sour_Cream_k2';
+      } else if((/Green/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
+        name_of_item = ["Tomatillo-Green Chili Salsa"];
+        row_id = 'what_item_Green_Chili_Salsa_k2';
+      } else if((/Red/.test(id)) && (/Chili/.test(id)) && (/Salsa/.test(id))) {
+        name_of_item = ["Tomatillo-Red Chili Salsa"];
+        row_id = 'what_item_Red_Chili_Salsa_k2';
+      } else if((/Romaine/.test(id)) && (/Lettuce/.test(id))) {
+        name_of_item = ["Romaine Lettuce (taco) "];
+        row_id = 'what_item_Romaine_Lettuce_k2';
+      } else if((/Chili/.test(id)) && (/Corn/.test(id)) && (/Salsa/.test(id))) {
+        name_of_item = ["Roasted Chili-Corn Salsa "];
+        row_id = 'what_item_Chili_Corn_Salsa_k2';
+      } 
+      add_data_to_table(name_of_item,row_id);
+    } else if(this.checked && this.type == 'radio'){
+      var name_of_item = [];
+      var row_id ="aaa";
+      // remove_item(row_id);
+      if(/Chicken/.test(id)){
+        name_of_item = ["Chicken "];
+      } else if(/Veggies/.test(id)) {
+        name_of_item = ["Fajita Vegetables "];
+      } else if(/Chips/.test(id)) {
+        name_of_item = ["Chips "];
+      } else if(/Steak/.test(id)) {
+        name_of_item = ["Steak "];
+      } else if(/Barbacoa/.test(id)) {
+        name_of_item = ["Barbacoa "];
+      } else if(/Carnitas/.test(id)) {
+        name_of_item = ["Carnitas "];
+      } else if((/White_Rice_Side/.test(id))) {
+        name_of_item = ["Cilantro-Lime Rice (side)"];
+      } else if((/Brown_Rice_Side/.test(id))) {
+        name_of_item = ["Brown Rice (side)"];
+      } else if((/Black/.test(id)) && (/Side/.test(id))) {
+        name_of_item = ["Black Beans (side)"];
+      } else if(/Pinto/.test(id) && (/Side/.test(id))) {
+        name_of_item = ["Pinto Beans (side)"];
+      } else if(/Fajita/.test(id)) {
+        name_of_item = ["Fajita Vegetables "];
+      } else if(/Guacamole/.test(id)) {
+        name_of_item = ["Guacamole "];
+      } else if((/Crispy/.test(id))) {
+        name_of_item = ["Crispy Taco Shell "];
+      } else if((/Soft/.test(id)) && (/Tortilla/.test(id))) {
+        name_of_item = ["Soft Corn Tortilla"];
+      } 
+      add_data_to_table(name_of_item, row_id);
+    } else {
+      remove_item(this.id);
+    }
 }
 
 function clear_tab_on_change() {
@@ -451,7 +510,7 @@ function add_nutri_fresh_adult() {
   	$(clear_tab[i]).remove();
   }
   var name_of_item;
-  var new_row = $("<tr></tr>");
+  var new_row = $("<tr id='radio_item'></tr>");
   var checked_data = $("#adult_menu_options").find("input:checked").length;
   var selected_data = $("#adult_menu_one").find("input:checked");
   if (selected_data[0].value == "BURRITO") {
@@ -525,15 +584,14 @@ function add_nutri_fresh_kids() {
   	$(clear_tab[i]).remove();
   }
   var name_of_item = [];
-  // var new_row = $("<tr></tr>");
   var checked_data = $("#kids_menu_options").find("input:checked").length;
   var selected_data = $("#kids_menu_one").find("input:checked");
   if (selected_data[0].value == "SMALL QUESADILLA MEAL") {
-    name_of_item =["Flour Tortilla (taco)","Chicken ","Cheese (small quesadilla)","Cilantro-Lime Rice (taco)","Black Beans (taco)","Chips "];
+    name_of_item =["Flour Tortilla (taco)","Chicken ","Cheese (small quesadilla)","Cilantro-Lime Rice (side)","Black Beans (side)","Chips "];
   } else if (selected_data[0].value == "SINGLE TACO MEAL") {
-    name_of_item = ["Crispy Taco Shell ","Chicken ","Cilantro-Lime Rice (taco)","Chips "];
+    name_of_item = ["Crispy Taco Shell ","Chicken ","Cilantro-Lime Rice (side)","Chips "];
   } else if (selected_data[0].value == "TWO TACO KIT") {
-    name_of_item = ["Crispy Taco Shell ","Chicken ","Cilantro-Lime Rice (taco)","Chips "];
+    name_of_item = ["Crispy Taco Shell ","Chicken ","Cilantro-Lime Rice (side)","Chips "];
   }
   
   for(var j=0; j<26; j++) {
@@ -596,10 +654,12 @@ function add_nutri_fresh_kids() {
   }
 }
 
-function add_data_to_table(name_of_item) {
+function add_data_to_table(name_of_item,row_id) {
+  alert(name_of_item);
+  alert(row_id);
   for(var j=0; j<26; j++) {
     for(var k=0; k<name_of_item.length; k++) {
-      var new_row = $("<tr></tr>");
+      var new_row = $("<tr id="+row_id+"></tr>");
       if(kids_menu_list[j]["Menu_item"] == name_of_item[k] ) {
         new_cell1 = $("<td></td>")
         new_cell1.text(kids_menu_list[j]["Menu_item"]);
@@ -657,6 +717,75 @@ function add_data_to_table(name_of_item) {
   }
   
 }
+
+function add_data_to_adult_table(name_of_item,row_id) {
+  for(var j=0; j<23; j++) {
+    for(var k=0; k<name_of_item.length; k++) {
+      var new_row = $("<tr id="+row_id+"></tr>");
+      if(adult_menu_list[j]["Menu_item"] == name_of_item[k] ) {
+        new_cell1 = $("<td></td>")
+        new_cell1.text(adult_menu_list[j]["Menu_item"]);
+        new_row.append(new_cell1);
+        new_cell2 = $("<td></td>")
+        new_cell2.text(adult_menu_list[j]["Calories"]);
+        new_row.append(new_cell2);
+        new_cell3 = $("<td></td>")
+        new_cell3.text(adult_menu_list[j]["Cal From Fat"]);
+        new_row.append(new_cell3);
+        new_cell4 = $("<td></td>")
+        new_cell4.text(adult_menu_list[j]["Total Fat (g)"]);
+        new_row.append(new_cell4);
+        new_cell5 = $("<td></td>")
+        new_cell5.text(adult_menu_list[j]["Sat Fat (g)"]);
+        new_row.append(new_cell5);
+        new_cell6 = $("<td></td>")
+        new_cell6.text(adult_menu_list[j]["Trans Fat (g)"]);
+        new_row.append(new_cell6);
+        new_cell7 = $("<td></td>")
+        new_cell7.text(adult_menu_list[j]["Cholesterol (mg)"]);
+        new_row.append(new_cell7);
+        new_cell8 = $("<td></td>")
+        new_cell8.text(adult_menu_list[j]["Sodium (mg)"]);
+        new_row.append(new_cell8);
+        new_cell9 = $("<td></td>")
+        new_cell9.text(adult_menu_list[j]["Carbohydrates (g)"]);
+        new_row.append(new_cell9);
+        new_cell10 = $("<td></td>")
+        new_cell10.text(adult_menu_list[j]["Dietary Fiber (g)"]);
+        new_row.append(new_cell10);
+        new_cell11 = $("<td></td>")
+        new_cell11.text(adult_menu_list[j]["Sugars (g)"]);
+        new_row.append(new_cell11);
+        new_cell12 = $("<td></td>")
+        new_cell12.text(adult_menu_list[j]["Protein (g)"]);
+        new_row.append(new_cell12);
+        new_cell13 = $("<td></td>")
+        new_cell13.text(adult_menu_list[j]["Vitamin A"]);
+        new_row.append(new_cell13);
+        new_cell14 = $("<td></td>")
+        new_cell14.text(adult_menu_list[j]["Vitamin C"]);
+        new_row.append(new_cell14);
+        new_cell15 = $("<td></td>")
+        new_cell15.text(adult_menu_list[j]["Calcium"]);
+        new_row.append(new_cell15);
+        new_cell16 = $("<td></td>")
+        new_cell16.text(adult_menu_list[j]["Iron"]);
+        new_row.append(new_cell16);
+        $('#nutri_table tr:last').before(new_row);
+        addition_of_nutrition();
+        break;
+      }
+    }
+  }
+  
+}
+
+function remove_item(element_id) {
+  var remove_row = $("#nutri_table").find("tr[id="+element_id+"]");
+  $(remove_row).remove();
+  addition_of_nutrition();
+}
+
 
 function addition_of_nutrition() {
   var total_row = $('#nutri_table tr:last');
