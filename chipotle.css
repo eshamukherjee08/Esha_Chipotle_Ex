@@ -184,3 +184,10 @@ ul li{list-style-type:none;}
 
 th{font-size:12px;padding:3px}
 td{font-size:12px;padding:3px}
+
+
+/*nutrition table*/
+
+.nutri_calculations {
+  clear:both;
+}
