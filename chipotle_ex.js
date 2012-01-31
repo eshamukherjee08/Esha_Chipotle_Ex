@@ -1,7 +1,6 @@
 /*Global variable to store json data.*/
 
-var adult_menu_list = [];
-var kids_menu_list = [];
+var adult_menu_list = [], kids_menu_list = [];
 
 
 /*parsing json data*/
