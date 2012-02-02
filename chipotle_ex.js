@@ -402,19 +402,19 @@ function add_nutri_adult() {
       name_of_item = ["Roasted Chili-Corn Salsa "];
       row_id = 'item_Chili_Corn_Salsa1';
     } else if((/Chips_And_Guacamole/.test(id))) {
-      name_of_item = ["Chips","Guacamole"];
+      name_of_item = ["Chips & Guacamole"];
       row_id = 'item_Chips_And_Guacamole';
     } else if((/Chips_Chili_Salsa_Green/.test(id))) {
-      name_of_item = ["Chips","Tomatillo-Green Chili Salsa"];
+      name_of_item = ["Chips & Tomatillo-Green Chili Salsa"];
       row_id = 'item_Chips_Chili_Salsa_Green_1';
     } else if((/Chips_Chili_Salsa_Red/.test(id))) {
-      name_of_item = ["Chips","Tomatillo-Red Chili Salsa"];
+      name_of_item = ["Chips & Tomatillo-Red Chili Salsa"];
       row_id = 'item_Chips_Chili_Salsa_Red_1';
     } else if((/Chips_Tomato_Salsa/.test(id))) {
-      name_of_item = ["Chips","Fresh Tomato Salsa "];
+      name_of_item = ["Chips & Fresh Tomato Salsa"];
       row_id = 'item_Chips_Tomato_Salsa_1';
     } else if((/Chips/.test(id)) && (/Corn/.test(id)) && (/Salsa/.test(id))) {
-      name_of_item = ["Chips","Roasted Chili-Corn Salsa "];
+      name_of_item = ["Chips & Roasted Chili-Corn Salsa"];
       row_id = 'item_Chips_Corn_Salsa1';
     }
     add_data_to_adult_table(name_of_item, row_id);
@@ -427,7 +427,7 @@ function add_nutri_adult() {
     } else if((/Crispy/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
       name_of_item = ["Crispy Taco Shell"];
     } else if((/Soft/.test(id)) && (/Flour/.test(id)) && (/Tortilla/.test(id))) {
-      name_of_item = ["Flour Tortilla (burrito)"];
+      name_of_item = ["Flour Tortilla (taco)"];
     } else if((/Soft/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
       name_of_item = ["Soft Corn Tortilla"];
     } else if((/Soft/.test(id)) && (/Taco/.test(id)) && (/Tortilla/.test(id))) {
@@ -559,67 +559,70 @@ function add_nutri_fresh_adult() {
   for (var i=0; i<clear_tab.length; i++) {
   	$(clear_tab[i]).remove();
   }
-  var name_of_item;
+  var name_of_item, multiplier;
   var new_row = $("<tr id='radio_item'></tr>");
   var checked_data = $("#adult_menu_options").find("input:checked").length;
   var selected_data = $("#adult_menu_one").find("input:checked");
   if (selected_data[0].value == "BURRITO") {
     name_of_item = "Flour Tortilla (burrito)";
+    multiplier = 1;
   } else if (selected_data[0].value == "TACOS") {
     name_of_item = "Crispy Taco Shell";
+    multiplier = 3;
   } else if (selected_data[0].value == "SALAD") {
     name_of_item = "Romaine Lettuce (salad)";
+    multiplier = 1;
   }
   
-  for(var j=0; j<23; j++) {
+  for(var j=0; j<28; j++) {
     if(adult_menu_list[j]["Menu_item"] == name_of_item) {
       new_cell1 = $("<td></td>")
       new_cell1.text(adult_menu_list[j]["Menu_item"]);
       new_row.append(new_cell1);
       new_cell2 = $("<td></td>")
-      new_cell2.text(adult_menu_list[j]["Calories"]);
+      new_cell2.text(adult_menu_list[j]["Calories"]*multiplier);
       new_row.append(new_cell2);
       new_cell3 = $("<td></td>")
-      new_cell3.text(adult_menu_list[j]["Cal From Fat"]);
+      new_cell3.text(adult_menu_list[j]["Cal From Fat"]*multiplier);
       new_row.append(new_cell3);
       new_cell4 = $("<td></td>")
-      new_cell4.text(adult_menu_list[j]["Total Fat (g)"]);
+      new_cell4.text(adult_menu_list[j]["Total Fat (g)"]*multiplier);
       new_row.append(new_cell4);
       new_cell5 = $("<td></td>")
-      new_cell5.text(adult_menu_list[j]["Sat Fat (g)"]);
+      new_cell5.text(adult_menu_list[j]["Sat Fat (g)"]*multiplier);
       new_row.append(new_cell5);
       new_cell6 = $("<td></td>")
-      new_cell6.text(adult_menu_list[j]["Trans Fat (g)"]);
+      new_cell6.text(adult_menu_list[j]["Trans Fat (g)"]*multiplier);
       new_row.append(new_cell6);
       new_cell7 = $("<td></td>")
-      new_cell7.text(adult_menu_list[j]["Cholesterol (mg)"]);
+      new_cell7.text(adult_menu_list[j]["Cholesterol (mg)"]*multiplier);
       new_row.append(new_cell7);
       new_cell8 = $("<td></td>")
-      new_cell8.text(adult_menu_list[j]["Sodium (mg)"]);
+      new_cell8.text(adult_menu_list[j]["Sodium (mg)"]*multiplier);
       new_row.append(new_cell8);
       new_cell9 = $("<td></td>")
-      new_cell9.text(adult_menu_list[j]["Carbohydrates (g)"]);
+      new_cell9.text(adult_menu_list[j]["Carbohydrates (g)"]*multiplier);
       new_row.append(new_cell9);
       new_cell10 = $("<td></td>")
-      new_cell10.text(adult_menu_list[j]["Dietary Fiber (g)"]);
+      new_cell10.text(adult_menu_list[j]["Dietary Fiber (g)"]*multiplier);
       new_row.append(new_cell10);
       new_cell11 = $("<td></td>")
-      new_cell11.text(adult_menu_list[j]["Sugars (g)"]);
+      new_cell11.text(adult_menu_list[j]["Sugars (g)"]*multiplier);
       new_row.append(new_cell11);
       new_cell12 = $("<td></td>")
-      new_cell12.text(adult_menu_list[j]["Protein (g)"]);
+      new_cell12.text(adult_menu_list[j]["Protein (g)"]*multiplier);
       new_row.append(new_cell12);
       new_cell13 = $("<td></td>")
-      new_cell13.text(adult_menu_list[j]["Vitamin A"]);
+      new_cell13.text(adult_menu_list[j]["Vitamin A"]*multiplier);
       new_row.append(new_cell13);
       new_cell14 = $("<td></td>")
-      new_cell14.text(adult_menu_list[j]["Vitamin C"]);
+      new_cell14.text(adult_menu_list[j]["Vitamin C"]*multiplier);
       new_row.append(new_cell14);
       new_cell15 = $("<td></td>")
-      new_cell15.text(adult_menu_list[j]["Calcium"]);
+      new_cell15.text(adult_menu_list[j]["Calcium"]*multiplier);
       new_row.append(new_cell15);
       new_cell16 = $("<td></td>")
-      new_cell16.text(adult_menu_list[j]["Iron"]);
+      new_cell16.text(adult_menu_list[j]["Iron"]*multiplier);
       new_row.append(new_cell16);
       $('#nutri_table tr:last').before(new_row);
       addition_of_nutrition();
@@ -636,12 +639,12 @@ function add_nutri_fresh_kids() {
   	$(clear_tab[i]).remove();
   }
   var name_of_item = [];
-  var row_id = [];
+  var row_id = [], multiplier;
   var checked_data = $("#kids_menu_options").find("input:checked").length;
   var selected_data = $("#kids_menu_one").find("input:checked");
   if (selected_data[0].value == "SMALL QUESADILLA MEAL") {
-    name_of_item =["Flour Tortilla (taco)","Chicken ","Cheese (small quesadilla)","Cilantro-Lime Rice (side)","Black Beans (side)","Chips "];
-    row_id =['flour_taco','kids_meat','cheese_small','side_rice','side_beans','chips'];
+    name_of_item =["Flour Tortilla (taco)","Cheese (small quesadilla)","Cilantro-Lime Rice (side)","Black Beans (side)","Chips "];
+    row_id =['flour_taco','cheese_small','side_rice','side_beans','chips'];
   } else if (selected_data[0].value == "SINGLE TACO MEAL" || selected_data[0].value == "TWO TACO KIT") {
     name_of_item = ["Crispy Taco Shell ","Chicken ","Cilantro-Lime Rice (side)","Chips "];
     row_id =['side_taco','kids_meat','side_rice','chips'];
@@ -650,54 +653,59 @@ function add_nutri_fresh_kids() {
   for(var j=0; j<26; j++) {
     for(var k=0; k<name_of_item.length; k++) {
       var new_row = $("<tr id="+row_id[k]+"></tr>");
+      if(name_of_item[k] == "Crispy Taco Shell " &&  selected_data[0].value == "TWO TACO KIT") {
+        multiplier = 2;
+      } else {
+        multiplier = 1;
+      }
       if(kids_menu_list[j]["Menu_item"] == name_of_item[k] ) {
         new_cell1 = $("<td></td>")
         new_cell1.text(kids_menu_list[j]["Menu_item"]);
         new_row.append(new_cell1);
         new_cell2 = $("<td></td>")
-        new_cell2.text(kids_menu_list[j]["Calories"]);
+        new_cell2.text(kids_menu_list[j]["Calories"]*multiplier);
         new_row.append(new_cell2);
         new_cell3 = $("<td></td>")
-        new_cell3.text(kids_menu_list[j]["Cal From Fat"]);
+        new_cell3.text(kids_menu_list[j]["Cal From Fat"]*multiplier);
         new_row.append(new_cell3);
         new_cell4 = $("<td></td>")
-        new_cell4.text(kids_menu_list[j]["Total Fat (g)"]);
+        new_cell4.text(kids_menu_list[j]["Total Fat (g)"]*multiplier);
         new_row.append(new_cell4);
         new_cell5 = $("<td></td>")
-        new_cell5.text(kids_menu_list[j]["Sat Fat (g)"]);
+        new_cell5.text(kids_menu_list[j]["Sat Fat (g)"]*multiplier);
         new_row.append(new_cell5);
         new_cell6 = $("<td></td>")
-        new_cell6.text(kids_menu_list[j]["Trans Fat (g)"]);
+        new_cell6.text(kids_menu_list[j]["Trans Fat (g)"]*multiplier);
         new_row.append(new_cell6);
         new_cell7 = $("<td></td>")
-        new_cell7.text(kids_menu_list[j]["Cholesterol (mg)"]);
+        new_cell7.text(kids_menu_list[j]["Cholesterol (mg)"]*multiplier);
         new_row.append(new_cell7);
         new_cell8 = $("<td></td>")
-        new_cell8.text(kids_menu_list[j]["Sodium (mg)"]);
+        new_cell8.text(kids_menu_list[j]["Sodium (mg)"]*multiplier);
         new_row.append(new_cell8);
         new_cell9 = $("<td></td>")
-        new_cell9.text(kids_menu_list[j]["Carbohydrates (g)"]);
+        new_cell9.text(kids_menu_list[j]["Carbohydrates (g)"]*multiplier);
         new_row.append(new_cell9);
         new_cell10 = $("<td></td>")
-        new_cell10.text(kids_menu_list[j]["Dietary Fiber (g)"]);
+        new_cell10.text(kids_menu_list[j]["Dietary Fiber (g)"]*multiplier);
         new_row.append(new_cell10);
         new_cell11 = $("<td></td>")
-        new_cell11.text(kids_menu_list[j]["Sugars (g)"]);
+        new_cell11.text(kids_menu_list[j]["Sugars (g)"]*multiplier);
         new_row.append(new_cell11);
         new_cell12 = $("<td></td>")
-        new_cell12.text(kids_menu_list[j]["Protein (g)"]);
+        new_cell12.text(kids_menu_list[j]["Protein (g)"]*multiplier);
         new_row.append(new_cell12);
         new_cell13 = $("<td></td>")
-        new_cell13.text(kids_menu_list[j]["Vitamin A"]);
+        new_cell13.text(kids_menu_list[j]["Vitamin A"]*multiplier);
         new_row.append(new_cell13);
         new_cell14 = $("<td></td>")
-        new_cell14.text(kids_menu_list[j]["Vitamin C"]);
+        new_cell14.text(kids_menu_list[j]["Vitamin C"]*multiplier);
         new_row.append(new_cell14);
         new_cell15 = $("<td></td>")
-        new_cell15.text(kids_menu_list[j]["Calcium"]);
+        new_cell15.text(kids_menu_list[j]["Calcium"]*multiplier);
         new_row.append(new_cell15);
         new_cell16 = $("<td></td>")
-        new_cell16.text(kids_menu_list[j]["Iron"]);
+        new_cell16.text(kids_menu_list[j]["Iron"]*multiplier);
         new_row.append(new_cell16);
         $('#nutri_table tr:last').before(new_row);
         addition_of_nutrition();
@@ -710,57 +718,61 @@ function add_nutri_fresh_kids() {
 
 /*adding data to nutrition table for kids*/
 function add_data_to_table(name_of_item,row_id) {
+  var multiplier = 1;
   for(var j=0; j<26; j++) {
     for(var k=0; k<name_of_item.length; k++) {
-      var new_row = $("<tr id="+row_id+"></tr>");
+      if($("input[name='kids_menu_item']")[2].checked == true && (name_of_item[k] == 'Soft Corn Tortilla' || name_of_item[k] == 'Crispy Taco Shell ')) {
+        multiplier = 2;
+      }
+      var new_row = $("<tr id="+row_id+" onClick = 'remove_row(this)'></tr>");
       if(kids_menu_list[j]["Menu_item"] == name_of_item[k] ) {
         new_cell1 = $("<td></td>")
         new_cell1.text(kids_menu_list[j]["Menu_item"]);
         new_row.append(new_cell1);
         new_cell2 = $("<td></td>")
-        new_cell2.text(kids_menu_list[j]["Calories"]);
+        new_cell2.text(kids_menu_list[j]["Calories"]*multiplier);
         new_row.append(new_cell2);
         new_cell3 = $("<td></td>")
-        new_cell3.text(kids_menu_list[j]["Cal From Fat"]);
+        new_cell3.text(kids_menu_list[j]["Cal From Fat"]*multiplier);
         new_row.append(new_cell3);
         new_cell4 = $("<td></td>")
-        new_cell4.text(kids_menu_list[j]["Total Fat (g)"]);
+        new_cell4.text(kids_menu_list[j]["Total Fat (g)"]*multiplier);
         new_row.append(new_cell4);
         new_cell5 = $("<td></td>")
-        new_cell5.text(kids_menu_list[j]["Sat Fat (g)"]);
+        new_cell5.text(kids_menu_list[j]["Sat Fat (g)"]*multiplier);
         new_row.append(new_cell5);
         new_cell6 = $("<td></td>")
-        new_cell6.text(kids_menu_list[j]["Trans Fat (g)"]);
+        new_cell6.text(kids_menu_list[j]["Trans Fat (g)"]*multiplier);
         new_row.append(new_cell6);
         new_cell7 = $("<td></td>")
-        new_cell7.text(kids_menu_list[j]["Cholesterol (mg)"]);
+        new_cell7.text(kids_menu_list[j]["Cholesterol (mg)"]*multiplier);
         new_row.append(new_cell7);
         new_cell8 = $("<td></td>")
-        new_cell8.text(kids_menu_list[j]["Sodium (mg)"]);
+        new_cell8.text(kids_menu_list[j]["Sodium (mg)"]*multiplier);
         new_row.append(new_cell8);
         new_cell9 = $("<td></td>")
-        new_cell9.text(kids_menu_list[j]["Carbohydrates (g)"]);
+        new_cell9.text(kids_menu_list[j]["Carbohydrates (g)"]*multiplier);
         new_row.append(new_cell9);
         new_cell10 = $("<td></td>")
-        new_cell10.text(kids_menu_list[j]["Dietary Fiber (g)"]);
+        new_cell10.text(kids_menu_list[j]["Dietary Fiber (g)"]*multiplier);
         new_row.append(new_cell10);
         new_cell11 = $("<td></td>")
-        new_cell11.text(kids_menu_list[j]["Sugars (g)"]);
+        new_cell11.text(kids_menu_list[j]["Sugars (g)"]*multiplier);
         new_row.append(new_cell11);
         new_cell12 = $("<td></td>")
-        new_cell12.text(kids_menu_list[j]["Protein (g)"]);
+        new_cell12.text(kids_menu_list[j]["Protein (g)"]*multiplier);
         new_row.append(new_cell12);
         new_cell13 = $("<td></td>")
-        new_cell13.text(kids_menu_list[j]["Vitamin A"]);
+        new_cell13.text(kids_menu_list[j]["Vitamin A"]*multiplier);
         new_row.append(new_cell13);
         new_cell14 = $("<td></td>")
-        new_cell14.text(kids_menu_list[j]["Vitamin C"]);
+        new_cell14.text(kids_menu_list[j]["Vitamin C"]*multiplier);
         new_row.append(new_cell14);
         new_cell15 = $("<td></td>")
-        new_cell15.text(kids_menu_list[j]["Calcium"]);
+        new_cell15.text(kids_menu_list[j]["Calcium"]*multiplier);
         new_row.append(new_cell15);
         new_cell16 = $("<td></td>")
-        new_cell16.text(kids_menu_list[j]["Iron"]);
+        new_cell16.text(kids_menu_list[j]["Iron"]*multiplier);
         new_row.append(new_cell16);
         $('#nutri_table tr:last').before(new_row);
         addition_of_nutrition();
@@ -774,54 +786,63 @@ function add_data_to_table(name_of_item,row_id) {
 
 /*adding data to nutrition table for adults*/
 function add_data_to_adult_table(name_of_item,row_id) {
-  for(var j=0; j<23; j++) {
+  if (row_id == 'radio_item'){
+    multiplier = 3;
+  } else {
+    multiplier = 1;
+  }
+  for(var j=0; j<28; j++) {
     for(var k=0; k<name_of_item.length; k++) {
-      var new_row = $("<tr id="+row_id+"></tr>");
+      var new_row = $("<tr id="+row_id+"  onClick = 'remove_row(this)'></tr>");
       if(adult_menu_list[j]["Menu_item"] == name_of_item[k] ) {
         new_cell1 = $("<td></td>")
         new_cell1.text(adult_menu_list[j]["Menu_item"]);
+        if(name_of_item[k] == "Chicken" || name_of_item[k] == "Steak" || name_of_item[k] == "Carnitas" || name_of_item[k] == "Barbacoa" ){
+          form_div = $("<div class=\"form_div\"><label>Servings</label><input type = \"text\" class = \"serve\" id=\"serve_"+name_of_item[k]+"\" value = \"1\"><span class = \"add\" onClick = \"add_servings(this.id);\" id=\"add_"+name_of_item[k]+"\">Add</span><span class = \"del\" onClick = \"del_servings(this.id);\" id=\"del_"+name_of_item[k]+"\">Del</span>")
+          new_cell1.append(form_div);
+        }
         new_row.append(new_cell1);
         new_cell2 = $("<td></td>")
-        new_cell2.text(adult_menu_list[j]["Calories"]);
+        new_cell2.text(adult_menu_list[j]["Calories"]*multiplier);
         new_row.append(new_cell2);
         new_cell3 = $("<td></td>")
-        new_cell3.text(adult_menu_list[j]["Cal From Fat"]);
+        new_cell3.text(adult_menu_list[j]["Cal From Fat"]*multiplier);
         new_row.append(new_cell3);
         new_cell4 = $("<td></td>")
-        new_cell4.text(adult_menu_list[j]["Total Fat (g)"]);
+        new_cell4.text(adult_menu_list[j]["Total Fat (g)"]*multiplier);
         new_row.append(new_cell4);
         new_cell5 = $("<td></td>")
-        new_cell5.text(adult_menu_list[j]["Sat Fat (g)"]);
+        new_cell5.text(adult_menu_list[j]["Sat Fat (g)"]*multiplier);
         new_row.append(new_cell5);
         new_cell6 = $("<td></td>")
-        new_cell6.text(adult_menu_list[j]["Trans Fat (g)"]);
+        new_cell6.text(adult_menu_list[j]["Trans Fat (g)"]*multiplier);
         new_row.append(new_cell6);
         new_cell7 = $("<td></td>")
-        new_cell7.text(adult_menu_list[j]["Cholesterol (mg)"]);
+        new_cell7.text(adult_menu_list[j]["Cholesterol (mg)"]*multiplier);
         new_row.append(new_cell7);
         new_cell8 = $("<td></td>")
-        new_cell8.text(adult_menu_list[j]["Sodium (mg)"]);
+        new_cell8.text(adult_menu_list[j]["Sodium (mg)"]*multiplier);
         new_row.append(new_cell8);
         new_cell9 = $("<td></td>")
-        new_cell9.text(adult_menu_list[j]["Carbohydrates (g)"]);
+        new_cell9.text(adult_menu_list[j]["Carbohydrates (g)"]*multiplier);
         new_row.append(new_cell9);
         new_cell10 = $("<td></td>")
-        new_cell10.text(adult_menu_list[j]["Dietary Fiber (g)"]);
+        new_cell10.text(adult_menu_list[j]["Dietary Fiber (g)"]*multiplier);
         new_row.append(new_cell10);
         new_cell11 = $("<td></td>")
-        new_cell11.text(adult_menu_list[j]["Sugars (g)"]);
+        new_cell11.text(adult_menu_list[j]["Sugars (g)"]*multiplier);
         new_row.append(new_cell11);
         new_cell12 = $("<td></td>")
-        new_cell12.text(adult_menu_list[j]["Protein (g)"]);
+        new_cell12.text(adult_menu_list[j]["Protein (g)"]*multiplier);
         new_row.append(new_cell12);
         new_cell13 = $("<td></td>")
-        new_cell13.text(adult_menu_list[j]["Vitamin A"]);
+        new_cell13.text(adult_menu_list[j]["Vitamin A"]*multiplier);
         new_row.append(new_cell13);
         new_cell14 = $("<td></td>")
-        new_cell14.text(adult_menu_list[j]["Vitamin C"]);
+        new_cell14.text(adult_menu_list[j]["Vitamin C"]*multiplier);
         new_row.append(new_cell14);
         new_cell15 = $("<td></td>")
-        new_cell15.text(adult_menu_list[j]["Calcium"]);
+        new_cell15.text(adult_menu_list[j]["Calcium"]*multiplier);
         new_row.append(new_cell15);
         new_cell16 = $("<td></td>")
         new_cell16.text(adult_menu_list[j]["Iron"]);
@@ -853,12 +874,55 @@ function addition_of_nutrition() {
   for(var i=2; i<17; i++) {
     var sum = 0;
     all_rows.children("td:nth-child("+i+")").each(function(){
-      sum += parseInt($(this).html());
+      sum += parseFloat($(this).html());
     });
     vals[i] = sum;
   }
   for(var i=2; i<17; i++) {
     total_row.children("td:nth-child("+i+")").html(vals[i]);
   }
-  
 }
+
+
+//function to add servings.
+
+function add_servings(item_id) {
+  var id_code = item_id.split(/\_/g);    //stores chicken,steak etc.
+  if($("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val() == 1){
+    $("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val(2);
+    var table_val = $("#nutri_table").find("tr[id ='item_"+id_code[1]+"1']").find("td");
+    for(var i=1; i<table_val.length; i++) {
+      var val = parseFloat($(table_val[i]).html());
+      $(table_val[i]).html(val*2);
+    }
+    addition_of_nutrition();
+  }
+}
+
+
+//function to delete servings.
+function del_servings(item_id) {
+ var id_code = item_id.split(/\_/g);    //stores chicken,steak etc.
+ if($("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val() == 2){
+   $("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val(1);
+   var table_val = $("#nutri_table").find("tr[id ='item_"+id_code[1]+"1']").find("td");
+   for(var i=1; i<table_val.length; i++) {
+     var val = parseFloat($(table_val[i]).html());
+     $(table_val[i]).html(val*0.5);
+   }
+   addition_of_nutrition();
+ } 
+}
+
+// function to delete row on clicking each row.
+
+function remove_row(th) {
+  $("input[id=\'"+th.id+"\']")[0].checked = false;
+  $(th).remove();
+  addition_of_nutrition();
+}
+
+$("#item_No_Item").click(function() {
+  $("#nutri_table").find("tr[id ='kids_meat']").remove();
+  addition_of_nutrition();
+});
