@@ -22,14 +22,22 @@ $("#adult_menu").bind('click', show_menu);
 $("#kids_menu").bind('click', show_menu);
 
 function show_menu() {
- if (this.id == "adult_menu") {
-   $("#kids_menu_one").removeClass("active");
- } else if(this.id == "kids_menu"){
-   $("#adult_menu_one").removeClass("active")
- }
- change_visible_menu(this.id);
- clear_tab_on_change();
- clear_added_values();
+  var options_a = $("#adult_menu_one").find("input");
+  for (var i=0; i<options_a.length; i++) {
+  	options_a[i].checked = false;
+  }
+  var options_k = $("#kids_menu_one").find("input");
+  for (var i=0; i<options_k.length; i++) {
+  	options_k[i].checked = false;
+  }
+  if (this.id == "adult_menu") {
+    $("#kids_menu_one").removeClass("active");
+  } else if(this.id == "kids_menu"){
+    $("#adult_menu_one").removeClass("active")
+  }
+  change_visible_menu(this.id);
+  clear_tab_on_change();
+  clear_added_values();
 }
 
 
