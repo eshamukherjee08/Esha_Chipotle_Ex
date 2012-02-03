@@ -805,7 +805,7 @@ function add_data_to_adult_table(name_of_item,row_id) {
         new_cell1 = $("<td></td>")
         new_cell1.text(adult_menu_list[j]["Menu_item"]);
         if(name_of_item[k] == "Chicken" || name_of_item[k] == "Steak" || name_of_item[k] == "Carnitas" || name_of_item[k] == "Barbacoa" ){
-          form_div = $("<div class=\"form_div\"><label>Servings</label><input type = \"text\" class = \"serve\" id=\"serve_"+name_of_item[k]+"\" value = \"1\"><span class = \"add\" onClick = \"add_servings(event, this.id);\" id=\"add_"+name_of_item[k]+"\">Add</span><span class = \"del\" onClick = \"del_servings(event, this.id);\" id=\"del_"+name_of_item[k]+"\">Del</span>")
+          form_div = $("<div class=\"form_div\"><label>Servings</label><input type = \"text\" class = \"serve\" id=\"serve_"+name_of_item[k]+"\" value = \"1\"><span class = \"add\" onClick = \"add_servings(event, this.id);\" id=\"add_"+name_of_item[k]+"\">+</span><span class = \"del\" onClick = \"del_servings(event, this.id);\" id=\"del_"+name_of_item[k]+"\">-</span>")
           new_cell1.append(form_div);
         }
         new_row.append(new_cell1);

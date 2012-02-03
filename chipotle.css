@@ -184,7 +184,10 @@ ul li{list-style-type:none;}
 
 th{font-size:12px;padding:3px}
 td{font-size:12px;padding:3px}
-
+table,th,td
+{
+border:1px solid black;
+}
 
 /*nutrition table*/
 
@@ -193,4 +196,12 @@ td{font-size:12px;padding:3px}
 }
 
 .serve {width:20px}
-.add{margin-right:3px}
+.add{margin-right:3px;
+  border:1px solid green;
+  font-size:12px;
+  padding:3px;
+  margin-top:4px;}
+.del{border:1px solid red;
+  font-size:12px;
+  padding:3px;
+  margin-top:4px;}
