@@ -147,6 +147,7 @@ function show_options() {
           $("#for_2tacos").addClass("hide");
           $("#kids_meat_veggies").addClass("hide");
           $("#kids_meat_cheese").removeClass("hide");
+          $("#kids_no_meat").removeClass("hide");
           $("#what_inside").addClass("hide");
           $("#side_one").removeClass("hide");
           $("#side_two").removeClass("hide");
@@ -162,6 +163,7 @@ function show_options() {
              $("#for_2tacos").addClass("hide");
              $("#kids_meat_veggies").removeClass("hide");
              $("#kids_meat_cheese").addClass("hide");
+             $("#kids_no_meat").addClass("hide");
              $("#what_inside").removeClass("hide");
              $("#side_one").addClass("hide");
              $("#side_two").addClass("hide");
@@ -177,6 +179,7 @@ function show_options() {
             $("#for_2tacos").removeClass("hide");
             $("#kids_meat_veggies").removeClass("hide");
             $("#kids_meat_cheese").addClass("hide");
+            $("#kids_no_meat").addClass("hide");
             $("#what_inside").removeClass("hide");
             $("#side_one").addClass("hide");
             $("#side_two").addClass("hide");
@@ -326,7 +329,11 @@ function pre_select_options() {
   var radio_select_tacos_2 = $("input[name='tacos_2']");
   radio_select_tacos_2[0].checked = true;
   var radio_select_kids_meat = $("input[name='kids_meat']");
-  radio_select_kids_meat[0].checked = true;
+  if($("input[name='kids_menu_item']")[0].checked){
+   radio_select_kids_meat[0].checked = true; 
+  } else {
+   radio_select_kids_meat[1].checked = true;  
+  }
   var radio_select_kids_meat_cheese = $("input[name='kids_meat_cheese']");
   radio_select_kids_meat_cheese[0].checked = true;
   var radio_select_side_one = $("input[name='side_one']");
@@ -798,7 +805,7 @@ function add_data_to_adult_table(name_of_item,row_id) {
         new_cell1 = $("<td></td>")
         new_cell1.text(adult_menu_list[j]["Menu_item"]);
         if(name_of_item[k] == "Chicken" || name_of_item[k] == "Steak" || name_of_item[k] == "Carnitas" || name_of_item[k] == "Barbacoa" ){
-          form_div = $("<div class=\"form_div\"><label>Servings</label><input type = \"text\" class = \"serve\" id=\"serve_"+name_of_item[k]+"\" value = \"1\"><span class = \"add\" onClick = \"add_servings(this.id);\" id=\"add_"+name_of_item[k]+"\">Add</span><span class = \"del\" onClick = \"del_servings(this.id);\" id=\"del_"+name_of_item[k]+"\">Del</span>")
+          form_div = $("<div class=\"form_div\"><label>Servings</label><input type = \"text\" class = \"serve\" id=\"serve_"+name_of_item[k]+"\" value = \"1\"><span class = \"add\" onClick = \"add_servings(event, this.id);\" id=\"add_"+name_of_item[k]+"\">Add</span><span class = \"del\" onClick = \"del_servings(event, this.id);\" id=\"del_"+name_of_item[k]+"\">Del</span>")
           new_cell1.append(form_div);
         }
         new_row.append(new_cell1);
@@ -886,7 +893,8 @@ function addition_of_nutrition() {
 
 //function to add servings.
 
-function add_servings(item_id) {
+function add_servings(event, item_id) {
+  event.stopPropagation();
   var id_code = item_id.split(/\_/g);    //stores chicken,steak etc.
   if($("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val() == 1){
     $("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val(2);
@@ -901,7 +909,8 @@ function add_servings(item_id) {
 
 
 //function to delete servings.
-function del_servings(item_id) {
+function del_servings(event, item_id) {
+ event.stopPropagation();
  var id_code = item_id.split(/\_/g);    //stores chicken,steak etc.
  if($("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val() == 2){
    $("#nutri_table").find("input[id ='serve_"+id_code[1]+"']").val(1);
