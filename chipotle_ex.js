@@ -82,7 +82,6 @@ for(var i=0; i<kids_menu_item.length; i++) {
   $(kids_menu_item[i]).bind('click', add_nutri_fresh_kids);
 }
 
-
 /*Displaying list of items in a particular selected menu.*/
 function show_options() {
   if (this.name == "adult_menu_item") {
@@ -299,32 +298,21 @@ $("#kids_menu_options").delegate("input", 'click', add_nutri_kids);
 
 /*marking pre selected options as checked.*/
 function pre_select_options() {
-  var radio_select_soft_flour_tortilla = $("input[name='soft_flour_tortilla_selected']");
-  radio_select_soft_flour_tortilla[0].checked = true;
-  var radio_select_tacos_3 = $("input[name='tacos_3']");
-  radio_select_tacos_3[0].checked = true;
-  var radio_select_romanian_lettuce = $("input[name='romanian_lettuce_selected']");
-  radio_select_romanian_lettuce[0].checked = true;
-  var radio_select_flour_tortilla_k0 = $("input[name='flour_tortilla_k0_selected']");
-  radio_select_flour_tortilla_k0[0].checked = true;
-  var radio_select_tacos_1 = $("input[name='tacos_1']");
-  radio_select_tacos_1[0].checked = true;
-  var radio_select_tacos_2 = $("input[name='tacos_2']");
-  radio_select_tacos_2[0].checked = true;
-  var radio_select_kids_meat = $("input[name='kids_meat']");
+  $("input[name='soft_flour_tortilla_selected']")[0].checked = true;
+  $("input[name='tacos_3']")[0].checked = true;
+  $("input[name='romanian_lettuce_selected']")[0].checked = true;
+  $("input[name='flour_tortilla_k0_selected']")[0].checked = true;
+  $("input[name='tacos_1']")[0].checked = true;
+  $("input[name='tacos_2']")[0].checked = true;
   if($("input[name='kids_menu_item']")[0].checked){
-   radio_select_kids_meat[0].checked = true; 
+   $("input[name='kids_meat']")[0].checked = true; 
   } else {
-   radio_select_kids_meat[1].checked = true;  
+   $("input[name='kids_meat']")[1].checked = true;  
   }
-  var radio_select_kids_meat_cheese = $("input[name='kids_meat_cheese']");
-  radio_select_kids_meat_cheese[0].checked = true;
-  var radio_select_side_one = $("input[name='side_one']");
-  radio_select_side_one[0].checked = true;
-  var radio_select_side_two = $("input[name='side_two']");
-  radio_select_side_two[0].checked = true;
-  var radio_select_side_rice = $("input[name='side_rice']");
-  radio_select_side_rice[0].checked = true;
+  $("input[name='kids_meat_cheese']")[0].checked = true;
+  $("input[name='side_one']")[0].checked = true;
+  $("input[name='side_two']")[0].checked = true;
+  $("input[name='side_rice']")[0].checked = true;
 }
 
 
