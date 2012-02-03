@@ -429,16 +429,16 @@ function add_nutri_adult() {
     var name_of_item = [];
     var row_id ="radio_item";
     remove_item(row_id);
-    if((/Romaine/.test(id)) && (/Lettuce/.test(id)) && (/Salad/.test(id))) {
+    if((/Romaine_Lettuce_Salad/.test(id))) {
       name_of_item = ["Romaine Lettuce (salad)"];
-    } else if((/Crispy/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
+    } else if((/Crispy_Corn_Tortilla/.test(id))) {
       name_of_item = ["Crispy Taco Shell"];
-    } else if((/Soft/.test(id)) && (/Flour/.test(id)) && (/Tortilla/.test(id))) {
+    } else if((/Soft_Flour_Tortilla_Taco/.test(id))) {
       name_of_item = ["Flour Tortilla (taco)"];
-    } else if((/Soft/.test(id)) && (/Corn/.test(id)) && (/Tortilla/.test(id))) {
+    } else if((/Soft_Corn_Tortilla/.test(id))) {
       name_of_item = ["Soft Corn Tortilla"];
-    } else if((/Soft/.test(id)) && (/Taco/.test(id)) && (/Tortilla/.test(id))) {
-      name_of_item = ["Flour Tortilla (taco)"];
+    } else if((/Soft_Flour_Tortilla_burrito/.test(id))) {
+      name_of_item = ["Flour Tortilla (burrito)"];
     }
     add_data_to_adult_table(name_of_item, row_id);
   }else {
@@ -793,10 +793,10 @@ function add_data_to_table(name_of_item,row_id) {
 
 /*adding data to nutrition table for adults*/
 function add_data_to_adult_table(name_of_item,row_id) {
-  if (row_id == 'radio_item'){
-    multiplier = 3;
-  } else {
+  if (name_of_item[0] == "Flour Tortilla (burrito)" || name_of_item[0] == "Romaine Lettuce (salad)"){
     multiplier = 1;
+  } else {
+    multiplier = 3;
   }
   for(var j=0; j<28; j++) {
     for(var k=0; k<name_of_item.length; k++) {
@@ -852,7 +852,7 @@ function add_data_to_adult_table(name_of_item,row_id) {
         new_cell15.text(adult_menu_list[j]["Calcium"]*multiplier);
         new_row.append(new_cell15);
         new_cell16 = $("<td></td>")
-        new_cell16.text(adult_menu_list[j]["Iron"]);
+        new_cell16.text(adult_menu_list[j]["Iron"]*multiplier);
         new_row.append(new_cell16);
         $('#nutri_table tr:last').before(new_row);
         addition_of_nutrition();
