@@ -391,7 +391,6 @@ function add_nutri_adult() {
   } else if(this.checked && this.type == 'radio'){
     var name_of_item = [];
     var row_id ="radio_item";
-    remove_item(row_id);
     if((/Romaine_Lettuce_Salad/.test(id))) {
       name_of_item = ["Romaine Lettuce (salad)"];
     } else if((/Crispy_Corn_Tortilla/.test(id))) {
@@ -494,8 +493,7 @@ function add_nutri_kids() {
       } else if((/Soft/.test(id)) && (/Tortilla/.test(id))) {
         name_of_item = ["Soft Corn Tortilla"];
         row_id = 'side_taco';
-      } 
-      remove_item(row_id);
+      }
       add_data_to_table(name_of_item, row_id);
     } else {
       remove_item(this.id);
@@ -744,7 +742,11 @@ function add_data_to_table(name_of_item,row_id) {
         new_cell16 = $("<td></td>")
         new_cell16.text(kids_menu_list[j]["Iron"]*multiplier);
         new_row.append(new_cell16);
-        $('#nutri_table tr:last').before(new_row);
+        if($("#nutri_table").find("tr[id="+row_id+"]").length > 0){
+          $("#nutri_table").find("tr[id="+row_id+"]").replaceWith(new_row);
+        } else {
+          $('#nutri_table tr:last').before(new_row);
+        }
         addition_of_nutrition();
         break;
       }
@@ -817,7 +819,11 @@ function add_data_to_adult_table(name_of_item,row_id) {
         new_cell16 = $("<td></td>")
         new_cell16.text(adult_menu_list[j]["Iron"]*multiplier);
         new_row.append(new_cell16);
-        $('#nutri_table tr:last').before(new_row);
+        if($("#nutri_table").find("tr[id="+row_id+"]").length > 0){
+          $("#nutri_table").find("tr[id="+row_id+"]").replaceWith(new_row);
+        } else {
+          $('#nutri_table tr:last').before(new_row);
+        }
         addition_of_nutrition();
         break;
       }
