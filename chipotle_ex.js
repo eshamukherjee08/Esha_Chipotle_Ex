@@ -66,21 +66,16 @@ function change_visible_menu(menu_id) {
 
 
 /*Binding functions to input elements*/
-var adult_menu_item = $("input[name='adult_menu_item']");
-for(var i=0; i<adult_menu_item.length; i++) {
-  $(adult_menu_item[i]).bind('click', show_options);
-  $(adult_menu_item[i]).bind('click', pre_select_options);
-  $(adult_menu_item[i]).bind('click', clear_added_values);
-  $(adult_menu_item[i]).bind('click', add_nutri_fresh_adult);
-}
+$("input[name='adult_menu_item']").live('click', show_options);
+$("input[name='adult_menu_item']").live('click', pre_select_options);
+$("input[name='adult_menu_item']").live('click', clear_added_values);
+$("input[name='adult_menu_item']").live('click', add_nutri_fresh_adult);
 
-var kids_menu_item = $("input[name='kids_menu_item']");
-for(var i=0; i<kids_menu_item.length; i++) {
-  $(kids_menu_item[i]).bind('click', show_options);
-  $(kids_menu_item[i]).bind('click', pre_select_options);
-  $(kids_menu_item[i]).bind('click', clear_added_values);
-  $(kids_menu_item[i]).bind('click', add_nutri_fresh_kids);
-}
+$("input[name='kids_menu_item']").live('click', show_options);
+$("input[name='kids_menu_item']").live('click', pre_select_options);
+$("input[name='kids_menu_item']").live('click', clear_added_values);
+$("input[name='kids_menu_item']").live('click', add_nutri_fresh_kids);
+
 
 /*Displaying list of items in a particular selected menu.*/
 function show_options() {
@@ -192,10 +187,7 @@ function show_options() {
 
 
 /*clearing pre selected items in case of change of choice of item.*/
-var radio_block2 = $("input[name='kids_meat']");
-for (var i=0; i<radio_block2.length; i++) {
- $(radio_block2[i]).bind('click', clear_selected_options);
-}
+$("input[name='kids_meat']").live('click', clear_selected_options);
 function clear_selected_options(){
   var options = $("#what_inside").find("input");
   for (var i=0; i<options.length; i++) {
