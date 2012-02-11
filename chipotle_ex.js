@@ -142,9 +142,12 @@ function change_visible_menu(menu_id) {
  * Please use fast selectors. Going to inputs through #adult_menu_item, #kids_menu_item would have been faster.
  *
  */
-$("input[name='adult_menu_item'], input[name='kids_menu_item']").live('click', show_options).live('click', pre_select_options).live('click', clear_added_values).live('click', add_nutri_fresh);
-
+$("#adult_menu_one, #kids_menu_one").delegate("input", "click", show_options);
+$("#adult_menu_one, #kids_menu_one").delegate("input", "click", pre_select_options);
+$("#adult_menu_one, #kids_menu_one").delegate("input", "click", clear_added_values);
+$("#adult_menu_one, #kids_menu_one").delegate("input", "click", add_nutri_fresh);
 /*Displaying list of items in a particular selected menu.*/
+
 function show_options() {
   /*
    * WA: Following 'if' tells that we should extract out handling
@@ -152,72 +155,66 @@ function show_options() {
    * about checking of ids.
    *
    */
+   //EM: used checking of ids so that the function can be used for both cases and neednt be repeated.
   if (this.name == "adult_menu_item") {
     $(additional_data[2].menu_hide[0]).hide();
     $(additional_data[2].menu_hide[1]).hide();
     $(additional_data[2].menu_hide[3]).show();
     $(additional_data[2].menu_hide[4]).show();
-    var adult = document.getElementsByName("adult_menu_item"); /* WA: Use fast selectors */
+    // var adult = document.getElementsByName("adult_menu_item"); /* WA: Use fast selectors */
     /*
      * WA: Do not loop over form inputs to know which was selected/checked.
      * Use jQuery's .val() function instead. Also look at :selected and
      * :checked selectors.
      *
      */
-    for(var i=0; i<adult.length; i++) {
-      if (adult[i].checked == true) {
-        if (adult[i].value == "BURRITO") {
-          clear_selections();
-          $.each(additional_data[4].BURRITO[0].show_data, function(i,ele){$(ele).show();});
-          $.each(additional_data[4].BURRITO[1].hide_data, function(i,ele){$(ele).hide();});
-        } else if (adult[i].value == "BURRITO BOWL") {
-            clear_selections();
-            $.each(additional_data[5].BURRITO_BOWL[0].show_data, function(i,ele){$(ele).show();});
-            $.each(additional_data[5].BURRITO_BOWL[1].hide_data, function(i,ele){$(ele).hide();});
-        } else if (adult[i].value == "TACOS") {
-            clear_selections();
-            $.each(additional_data[6].TACOS[0].show_data, function(i,ele){$(ele).show();});
-            $.each(additional_data[6].TACOS[1].hide_data, function(i,ele){$(ele).hide();});
-        } else if (adult[i].value == "SALAD") {
-           clear_selections();
-           $.each(additional_data[7].SALAD[0].show_data, function(i,ele){$(ele).show();});
-           $.each(additional_data[7].SALAD[1].hide_data, function(i,ele){$(ele).hide();});
-        }
-      }
-    }
+     var adult = $("#adult_menu_one").find("input:checked");
+     if (adult.val() == "BURRITO") {
+       clear_selections();
+       $.each(additional_data[4].BURRITO[0].show_data, function(i,ele){$(ele).show();});
+       $.each(additional_data[4].BURRITO[1].hide_data, function(i,ele){$(ele).hide();});
+     } else if (adult.val() == "BURRITO BOWL") {
+         clear_selections();
+         $.each(additional_data[5].BURRITO_BOWL[0].show_data, function(i,ele){$(ele).show();});
+         $.each(additional_data[5].BURRITO_BOWL[1].hide_data, function(i,ele){$(ele).hide();});
+     } else if (adult.val() == "TACOS") {
+         clear_selections();
+         $.each(additional_data[6].TACOS[0].show_data, function(i,ele){$(ele).show();});
+         $.each(additional_data[6].TACOS[1].hide_data, function(i,ele){$(ele).hide();});
+     } else if (adult.val() == "SALAD") {
+        clear_selections();
+        $.each(additional_data[7].SALAD[0].show_data, function(i,ele){$(ele).show();});
+        $.each(additional_data[7].SALAD[1].hide_data, function(i,ele){$(ele).hide();});
+     }
   } else if (this.name == "kids_menu_item") {
-    var kid = document.getElementsByName("kids_menu_item");
+    var kid = $("#kids_menu_one").find("input:checked");;
     $(additional_data[2].menu_hide[0]).show();
     $(additional_data[2].menu_hide[1]).show();
     $(additional_data[2].menu_hide[3]).hide();
     $(additional_data[2].menu_hide[4]).hide();
-    for(var i=0; i<kid.length; i++) {
-      if (kid[i].checked == true) {
-        if (kid[i].value == "SMALL QUESADILLA MEAL") {
-          clear_selections_kid_block();
-          $.each(additional_data[8].SMALL_QUESADILLA_MEAL[0].show_data, function(i,ele){$(ele).show();});
-          $.each(additional_data[8].SMALL_QUESADILLA_MEAL[1].hide_data, function(i,ele){$(ele).hide();});
-        } else if (kid[i].value == "SINGLE TACO MEAL") {
-           clear_selections_kid_block();
-           clear_selections();
-           $.each(additional_data[9].SINGLE_TACO_MEAL[0].show_data, function(i,ele){$(ele).show();});
-           $.each(additional_data[9].SINGLE_TACO_MEAL[1].hide_data, function(i,ele){$(ele).hide();});
-        } else if (kid[i].value == "TWO TACO KIT") {
-           clear_selections_kid_block();
-           clear_selections();
-           $.each(additional_data[10].TWO_TACO_KIT[0].show_data, function(i,ele){$(ele).show();});
-           $.each(additional_data[10].TWO_TACO_KIT[1].hide_data, function(i,ele){$(ele).hide();});
-        } 
-      }
-    }
+    if (kid.val() == "SMALL QUESADILLA MEAL") {
+      clear_selections_kid_block();
+      $.each(additional_data[8].SMALL_QUESADILLA_MEAL[0].show_data, function(i,ele){$(ele).show();});
+      $.each(additional_data[8].SMALL_QUESADILLA_MEAL[1].hide_data, function(i,ele){$(ele).hide();});
+    } else if (kid.val() == "SINGLE TACO MEAL") {
+       clear_selections_kid_block();
+       clear_selections();
+       $.each(additional_data[9].SINGLE_TACO_MEAL[0].show_data, function(i,ele){$(ele).show();});
+       $.each(additional_data[9].SINGLE_TACO_MEAL[1].hide_data, function(i,ele){$(ele).hide();});
+    } else if (kid.val() == "TWO TACO KIT") {
+       clear_selections_kid_block();
+       clear_selections();
+       $.each(additional_data[10].TWO_TACO_KIT[0].show_data, function(i,ele){$(ele).show();});
+       $.each(additional_data[10].TWO_TACO_KIT[1].hide_data, function(i,ele){$(ele).hide();});
+    } 
   }
 }
 
 /*clearing pre selected items in case of change of choice of item.*/
-$("input[name='kids_meat']").live('click', clear_selected_options);
+$("input[name='kids_meat']").bind('click', clear_selected_options);
 function clear_selected_options(){
-  $.each($("#what_inside").find("input"), function(i,ele){ele.checked = false;});
-  $("#nutri_table").find("tr[id ^='what_item']").remove(); /* WA: There are no such elements in mark up whose id starts with 'what_item'. If you are creating it dynamically, reference it dynamically. */
+  $.each($("#what_inside").find("input"), function(i,ele){ele.checked = false; remove_item(ele.id);});
+  /* WA: There are no such elements in mark up whose id starts with 'what_item'. If you are creating it dynamically, reference it dynamically. */
   addition_of_nutrition();
 }
 
@@ -226,33 +223,21 @@ $("#what_inside").delegate("input", 'click', check_selected_options);
 
 function check_selected_options() {
   var radio_selected = $("input[name='kids_meat']");
-  var a = $("#what_inside").find("input");
+  var count = $("#what_inside").find("input:checked").length;
   for(var i=0; i<radio_selected.length; i++) {
-    if(radio_selected[i].checked == true && radio_selected[i].id == "item_Veggies_k") {
-      count = 0;
-      for (var i=0; i<a.length; i++) { /* WA: A very suitable use of :checked selector can be made here. */
-      	if(a[i].checked) {
-  				count++;
-  			}
-  		  if(count > 3) {
-  			  alert("Please select a maximum of 3 fillings!");
-  			  this.checked = false;
-  		    return;
-  			}
-      }
+    if(radio_selected[i].checked == true && radio_selected[i].id == "item_Veggies_k") { /* WA: A very suitable use of :checked selector can be made here. */
+		  if(count > 3) {
+			  alert("Please select a maximum of 3 fillings!");
+			  this.checked = false;
+		    return;
+			}
     } else if(radio_selected[i].checked == true && radio_selected[i].id != "item_Veggies_k") {
-      count = 0;
-      for (var i=0; i<a.length; i++) {
-      	if(a[i].checked) {
-  	  		count++;
-  			}
-  			if(count > 2) {
-  			  alert("Please select a maximum of 2 fillings!");
-  			  this.checked = false;
-  		    return;
-  			}
-      }
-    }
+			if(count > 2) {
+			  alert("Please select a maximum of 2 fillings!");
+			  this.checked = false;
+		    return;
+			}
+		}
   }
 }
 
@@ -282,6 +267,7 @@ function pre_select_options() {
 }
 
 /*adding items for adult menu*/
+//not clear
 function add_nutri_adult() {
   var id = this.id;
   var data = "adult";
@@ -384,6 +370,7 @@ function add_nutri_adult() {
 }
 
 /*adding items for kids menu*/
+//not clear
 function add_nutri_kids() {
     var id = this.id;
     var data = "kids";
@@ -486,12 +473,7 @@ function clear_added_values() {
    * WA: Use $('#nutri_table tr:last').find('td').html('foo')
    *
    */
-  var total_row = $('#nutri_table tr:last');
-  for (var j=2; j<17; j++) {
-    total_row.children("td:nth-child("+j+")").each(function(){
-      ($(this).html(0));
-    });
-  }
+  $('#nutri_table tr:last').find("td[id!='total']").html(0);
 }
 
 /*adding preselected items to table*/
@@ -599,7 +581,7 @@ function add_data_to_table(name_of_item,row_id, data) {
 
 /*Removing unchecked or changed item from nutrition table.*/
 function remove_item(element_id) {
-  $("#nutri_table").find("tr[id="+element_id+"]").remove();
+  $("#nutri_table").find("tr[id ^="+element_id+"]").remove();
   addition_of_nutrition();
 }
 
