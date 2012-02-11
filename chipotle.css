@@ -18,10 +18,7 @@
 }
 
 .hide {
-	display : none !important; /* WA: bad idea use inline style="display: none" instead */
-}
-.active {
-	display : block;
+	display : none; /* WA: bad idea use inline style="display: none" instead */
 }
 
 .title {

@@ -26,26 +26,11 @@ var adult_menu_list = [], kids_menu_list = [], additional_data = [];
  * a big plus.
  */
 
-/*parsing json data*/
-
 /*
  * WA: Making Ajax request _while_ your page is loading is a bad practice.
  * Put these request in jQuery(document).ready block.
  *
  */
-
-$.getJSON('adult_menu.json',function(json) {
-  $.each(json,function(i,a_items) {
-    adult_menu_list.push(a_items);
-  });
-});
-
-$.getJSON('kids_menu.json',function(json) {
-  $.each(json,function(i,k_items) {
-    kids_menu_list.push(k_items);
-  });
-});
-
 /*
  * WA: Almost always, do not put your markup in your data. We don't gain much from it.
  * Everytime your page loads, a request to your server, which is already
@@ -54,12 +39,24 @@ $.getJSON('kids_menu.json',function(json) {
  * If we are bulletproofing our application against future changes, we
  * should do it with other parts of our markup/html also.
  */
+ /*parsing json data*/
+ $.getJSON('adult_menu.json',function(json) {
+   $.each(json,function(i,a_items) {
+     adult_menu_list.push(a_items);
+   });
+ });
 
-$.getJSON('header_data.json',function(json) {
-  $.each(json,function(i,k_items) {
-    additional_data.push(k_items);
-  });
-});
+ $.getJSON('kids_menu.json',function(json) {
+   $.each(json,function(i,k_items) {
+     kids_menu_list.push(k_items);
+   });
+ });
+ 
+ $.getJSON('header_data.json',function(json) {
+   $.each(json,function(i,k_items) {
+     additional_data.push(k_items);
+   });
+ });
 
 $(document).ready(function(){
   /*
@@ -67,7 +64,7 @@ $(document).ready(function(){
    * a bounded key k. Very much like looping done in Ajax requests
    * made above.
    */
-  for(var k=0;k<16;k++){$(".t_header").append("<td>"+additional_data[0].array_nutrition[k]+"</td>");}
+  $.each(additional_data[0].array_nutrition, function(i,ele){$(".t_header").append("<td>"+ele+"</td>");});
   for(var k=0;k<15;k++){$(".t_add").append("<td>0</td>");}
 });
 
@@ -78,8 +75,9 @@ $(document).ready(function(){
  */
 
 /*Showing Respective menu item*/
-$("#adult_menu, #kids_menu").bind('click', show_menu);
-function show_menu() {
+$("#adult_menu").bind('click', show_adult_menu);
+$("#kids_menu").bind('click', show_kids_menu);
+function show_adult_menu() {
   /*
    * WA: No need to loop over inputs to uncheck/check all of them
    * at once. Use following piece of code instead. Notice no loops.
@@ -91,9 +89,7 @@ function show_menu() {
    * can be processed together. See its documentation for more info.
    *
    */
-  $.each($("#adult_menu_one").find("input"), function(i,ele){ele.checked = false;});
-  $.each($("#kids_menu_one").find("input"), function(i,ele){ele.checked = false;});
-
+   $("#adult_menu_one").find('input').attr("checked", false);
   /*
    * WA: An object should almost always be told what to do and not
    * asked if it can do something.
@@ -106,28 +102,32 @@ function show_menu() {
    * both the menu items simultaneously and then depending upon the id
    * below show one of them.
    */
-
-  if (this.id == "adult_menu") {
-    $(additional_data[3].kids_menu_show[0]).removeClass("active"); /* WA: Please use jQuery's .show() and .hide() instead. */
-  } else if(this.id == "kids_menu"){
-    $(additional_data[1].adult_menu_show[0]).removeClass("active");
-  }
+  $(additional_data[3].kids_menu_show[0]).hide(); /* WA: Please use jQuery's .show() and .hide() instead. */
+  $(additional_data[1].adult_menu_show[0]).show();
   change_visible_menu(this.id);
   clear_tab_on_change();
   clear_added_values();
 }
 
+function show_kids_menu() {
+  $("#kids_menu_one").find('input').attr("checked", false);
+  $(additional_data[1].adult_menu_show[0]).hide();
+  $(additional_data[3].kids_menu_show[0]).show();
+  change_visible_menu(this.id);
+  clear_tab_on_change();
+  clear_added_values();
+}
 
 /*Toggling between display of kids or adult menu items on respective selection.*/
 function change_visible_menu(menu_id) {
   if (menu_id == "adult_menu") {
-    $(additional_data[1].adult_menu_show[0]).removeClass("hide");
-    $(additional_data[3].kids_menu_show[0]).addClass("hide");
+    $(additional_data[1].adult_menu_show[0]).show();
+    $(additional_data[3].kids_menu_show[0]).hide();
   } else if (menu_id == "kids_menu") {
-    $(additional_data[3].kids_menu_show[0]).removeClass("hide");
-    $(additional_data[1].adult_menu_show[0]).addClass("hide");
+    $(additional_data[3].kids_menu_show[0]).show();
+    $(additional_data[1].adult_menu_show[0]).hide();
   }
-  $.each(additional_data[2].menu_hide, function(i,ele){$(ele).addClass("hide");});
+  $.each(additional_data[2].menu_hide, function(i,ele){$(ele).hide();});
 }
 
 /*Binding functions to input elements*/
@@ -153,10 +153,10 @@ function show_options() {
    *
    */
   if (this.name == "adult_menu_item") {
-    $(additional_data[2].menu_hide[0]).addClass("hide");
-    $(additional_data[2].menu_hide[1]).addClass("hide");
-    $(additional_data[2].menu_hide[3]).removeClass("hide");
-    $(additional_data[2].menu_hide[4]).removeClass("hide");
+    $(additional_data[2].menu_hide[0]).hide();
+    $(additional_data[2].menu_hide[1]).hide();
+    $(additional_data[2].menu_hide[3]).show();
+    $(additional_data[2].menu_hide[4]).show();
     var adult = document.getElementsByName("adult_menu_item"); /* WA: Use fast selectors */
     /*
      * WA: Do not loop over form inputs to know which was selected/checked.
@@ -168,45 +168,45 @@ function show_options() {
       if (adult[i].checked == true) {
         if (adult[i].value == "BURRITO") {
           clear_selections();
-          $.each(additional_data[4].BURRITO[0].show_data, function(i,ele){$(ele).removeClass("hide");});
-          $.each(additional_data[4].BURRITO[1].hide_data, function(i,ele){$(ele).addClass("hide");});
+          $.each(additional_data[4].BURRITO[0].show_data, function(i,ele){$(ele).show();});
+          $.each(additional_data[4].BURRITO[1].hide_data, function(i,ele){$(ele).hide();});
         } else if (adult[i].value == "BURRITO BOWL") {
             clear_selections();
-            $.each(additional_data[5].BURRITO_BOWL[0].show_data, function(i,ele){$(ele).removeClass("hide");});
-            $.each(additional_data[5].BURRITO_BOWL[1].hide_data, function(i,ele){$(ele).addClass("hide");});
+            $.each(additional_data[5].BURRITO_BOWL[0].show_data, function(i,ele){$(ele).show();});
+            $.each(additional_data[5].BURRITO_BOWL[1].hide_data, function(i,ele){$(ele).hide();});
         } else if (adult[i].value == "TACOS") {
             clear_selections();
-            $.each(additional_data[6].TACOS[0].show_data, function(i,ele){$(ele).removeClass("hide");});
-            $.each(additional_data[6].TACOS[1].hide_data, function(i,ele){$(ele).addClass("hide");});
+            $.each(additional_data[6].TACOS[0].show_data, function(i,ele){$(ele).show();});
+            $.each(additional_data[6].TACOS[1].hide_data, function(i,ele){$(ele).hide();});
         } else if (adult[i].value == "SALAD") {
            clear_selections();
-           $.each(additional_data[7].SALAD[0].show_data, function(i,ele){$(ele).removeClass("hide");});
-           $.each(additional_data[7].SALAD[1].hide_data, function(i,ele){$(ele).addClass("hide");});
+           $.each(additional_data[7].SALAD[0].show_data, function(i,ele){$(ele).show();});
+           $.each(additional_data[7].SALAD[1].hide_data, function(i,ele){$(ele).hide();});
         }
       }
     }
   } else if (this.name == "kids_menu_item") {
     var kid = document.getElementsByName("kids_menu_item");
-    $(additional_data[2].menu_hide[0]).removeClass("hide");
-    $(additional_data[2].menu_hide[1]).removeClass("hide");
-    $(additional_data[2].menu_hide[3]).addClass("hide");
-    $(additional_data[2].menu_hide[4]).addClass("hide");
+    $(additional_data[2].menu_hide[0]).show();
+    $(additional_data[2].menu_hide[1]).show();
+    $(additional_data[2].menu_hide[3]).hide();
+    $(additional_data[2].menu_hide[4]).hide();
     for(var i=0; i<kid.length; i++) {
       if (kid[i].checked == true) {
         if (kid[i].value == "SMALL QUESADILLA MEAL") {
           clear_selections_kid_block();
-          $.each(additional_data[8].SMALL_QUESADILLA_MEAL[0].show_data, function(i,ele){$(ele).removeClass("hide");});
-          $.each(additional_data[8].SMALL_QUESADILLA_MEAL[1].hide_data, function(i,ele){$(ele).addClass("hide");});
+          $.each(additional_data[8].SMALL_QUESADILLA_MEAL[0].show_data, function(i,ele){$(ele).show();});
+          $.each(additional_data[8].SMALL_QUESADILLA_MEAL[1].hide_data, function(i,ele){$(ele).hide();});
         } else if (kid[i].value == "SINGLE TACO MEAL") {
            clear_selections_kid_block();
            clear_selections();
-           $.each(additional_data[9].SINGLE_TACO_MEAL[0].show_data, function(i,ele){$(ele).removeClass("hide");});
-           $.each(additional_data[9].SINGLE_TACO_MEAL[1].hide_data, function(i,ele){$(ele).addClass("hide");});
+           $.each(additional_data[9].SINGLE_TACO_MEAL[0].show_data, function(i,ele){$(ele).show();});
+           $.each(additional_data[9].SINGLE_TACO_MEAL[1].hide_data, function(i,ele){$(ele).hide();});
         } else if (kid[i].value == "TWO TACO KIT") {
            clear_selections_kid_block();
            clear_selections();
-           $.each(additional_data[10].TWO_TACO_KIT[0].show_data, function(i,ele){$(ele).removeClass("hide");});
-           $.each(additional_data[10].TWO_TACO_KIT[1].hide_data, function(i,ele){$(ele).addClass("hide");});
+           $.each(additional_data[10].TWO_TACO_KIT[0].show_data, function(i,ele){$(ele).show();});
+           $.each(additional_data[10].TWO_TACO_KIT[1].hide_data, function(i,ele){$(ele).hide();});
         } 
       }
     }
