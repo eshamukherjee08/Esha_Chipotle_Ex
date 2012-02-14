@@ -182,8 +182,8 @@
 
 ul li{list-style-type:none;}
 
-th{font-size:12px;padding:3px}
-td{font-size:12px;padding:3px}
+th{font-size:12px;padding:3px;width:80px;}
+td{font-size:12px;padding:3px;width:80px;}
 table,th,td
 {
 border:1px solid black;

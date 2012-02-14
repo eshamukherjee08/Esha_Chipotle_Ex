@@ -1,0 +1,11 @@
+[{"array_nutrition": ["Menu_item","Calories","Cal From Fat","Total Fat (g)","Sat Fat (g)","Trans Fat (g)","Cholesterol (mg)","Sodium (mg)","Carbohydrates (g)","Dietary Fiber (g)","Sugars (g)","Protein (g)","Vitamin A","Vitamin C","Calcium","Iron"]},
+{"adult_menu_show": ["#adult_menu_one"]},
+{"menu_hide": ["#kids_menu_options", "#kids_regular_menu", "#kids_third_menu", "#adult_menu_options", "#adult_regular_menu"]},
+{"kids_menu_show": ["#kids_menu_one"]},
+{"BURRITO": [{"show_data": ["#tortilla", "#for_burrito"]}, {"hide_data":["#lettuce", "#for_burrito_bowl", "#for_3tacos", "#for_salad_bowl"]}]},
+{"BURRITO_BOWL": [{"show_data": ["#tortilla", "#for_burrito_bowl"]}, {"hide_data":["#lettuce", "#for_burrito", "#for_3tacos", "#for_salad_bowl"]}]},
+{"TACOS": [{"show_data": ["#tortilla", "#for_3tacos"]}, {"hide_data":["#lettuce", "#for_burrito", "#for_burrito_bowl", "#for_salad_bowl"]}]},
+{"SALAD": [{"show_data": ["#lettuce", "#for_salad_bowl"]}, {"hide_data":["#tortilla", "#for_burrito", "#for_burrito_bowl", "#for_3tacos"]}]},
+{"SMALL_QUESADILLA_MEAL": [{"show_data": ["#kids_side_one_title", "#kids_side_two_title", "#for_small_quesadilla", "#kids_meat_cheese", "#kids_no_meat", "#side_one", "#side_two"]}, {"hide_data":["#kids_whats_inside", "#kids_third_menu", "#for_1tacos", "#for_2tacos", "#kids_meat_veggies", "#what_inside"]}]},
+{"SINGLE_TACO_MEAL": [{"show_data": ["#kids_whats_inside", "#kids_third_menu", "#for_1tacos", "#kids_meat_veggies", "#what_inside"]}, {"hide_data":["#kids_side_one_title", "#kids_side_two_title", "#for_small_quesadilla", "#for_2tacos", "#kids_meat_cheese", "#kids_no_meat", "#side_one", "#side_two"]}]},
+{"TWO_TACO_KIT": [{"show_data": ["#kids_whats_inside", "#kids_third_menu", "#for_2tacos", "#kids_meat_veggies", "#what_inside"]}, {"hide_data":["#kids_side_one_title", "#kids_side_two_title", "#for_small_quesadilla", "#for_1tacos", "#kids_meat_cheese", "#kids_no_meat", "#side_one", "#side_two"]}]}]
