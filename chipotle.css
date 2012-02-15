@@ -18,7 +18,7 @@
 }
 
 .hide {
-	display : none !important;	
+	display : none !important; /* WA: bad idea use inline style="display: none" instead */
 }
 .active {
 	display : block;

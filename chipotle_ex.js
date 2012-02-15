@@ -2,7 +2,38 @@
 
 var adult_menu_list = [], kids_menu_list = [], additional_data = [];
 
+/*
+ * WA: Objects in Arrays in your json data have redundant key
+ * "Menu_item". This key has the name of a menu item. These names are
+ * unique in the JSON file. A lot of code below can be made simple
+ * by making these names keys of object and have corresponding nutrition
+ * values in those objects.
+ * 
+ * This will let you reference a particular item's nutrition value like:
+ * 
+ * adult_menu_list["Flour Tortilla (burrito)"]
+ * 
+ * And you will not have to loop(in add_data_to_table function)
+ * over adult_menu_list array and compare
+ * name of a value to find if it was indeed the item that you were looking for.
+ *
+ * Same can be done with kids_menu_list.
+ *
+ * Before putting name of the menu item in your object as a key, you might want to
+ * process it. It might contain some non standard characters.
+ *
+ * This will always be a one time process done on client side. So this is always
+ * a big plus.
+ */
+
 /*parsing json data*/
+
+/*
+ * WA: Making Ajax request _while_ your page is loading is a bad practice.
+ * Put these request in jQuery(document).ready block.
+ *
+ */
+
 $.getJSON('adult_menu.json',function(json) {
   $.each(json,function(i,a_items) {
     adult_menu_list.push(a_items);
@@ -15,6 +46,15 @@ $.getJSON('kids_menu.json',function(json) {
   });
 });
 
+/*
+ * WA: Almost always, do not put your markup in your data. We don't gain much from it.
+ * Everytime your page loads, a request to your server, which is already
+ * under heavy load, is made.
+ *
+ * If we are bulletproofing our application against future changes, we
+ * should do it with other parts of our markup/html also.
+ */
+
 $.getJSON('header_data.json',function(json) {
   $.each(json,function(i,k_items) {
     additional_data.push(k_items);
@@ -22,18 +62,53 @@ $.getJSON('header_data.json',function(json) {
 });
 
 $(document).ready(function(){
+  /*
+   * WA: Please loop over array_nutrition instead of looping over
+   * a bounded key k. Very much like looping done in Ajax requests
+   * made above.
+   */
   for(var k=0;k<16;k++){$(".t_header").append("<td>"+additional_data[0].array_nutrition[k]+"</td>");}
   for(var k=0;k<15;k++){$(".t_add").append("<td>0</td>");}
 });
 
 
+/*
+ * WA: Please don't _ever_ declare functions or variables in global namespace. Use
+ * Javascript module pattern instead.
+ */
+
 /*Showing Respective menu item*/
 $("#adult_menu, #kids_menu").bind('click', show_menu);
 function show_menu() {
+  /*
+   * WA: No need to loop over inputs to uncheck/check all of them
+   * at once. Use following piece of code instead. Notice no loops.
+   *
+   * $("#adult_menu_one").find('input').attr("checked", false)
+   *
+   * jQuery atomaticaly tries to apply a function to all the elements
+   * returned by $(). $() always returns an array of elements which
+   * can be processed together. See its documentation for more info.
+   *
+   */
   $.each($("#adult_menu_one").find("input"), function(i,ele){ele.checked = false;});
   $.each($("#kids_menu_one").find("input"), function(i,ele){ele.checked = false;});
+
+  /*
+   * WA: An object should almost always be told what to do and not
+   * asked if it can do something.
+   *
+   * Checking of ids below is not good. We should have declared two
+   * diffrent functions. show_adult_menu and show_kids_menu. Those
+   * should have handled displaying of respective menus.
+   *
+   * An apparent advantage of this would be that we wont have to uncheck
+   * both the menu items simultaneously and then depending upon the id
+   * below show one of them.
+   */
+
   if (this.id == "adult_menu") {
-    $(additional_data[3].kids_menu_show[0]).removeClass("active");
+    $(additional_data[3].kids_menu_show[0]).removeClass("active"); /* WA: Please use jQuery's .show() and .hide() instead. */
   } else if(this.id == "kids_menu"){
     $(additional_data[1].adult_menu_show[0]).removeClass("active");
   }
@@ -56,16 +131,39 @@ function change_visible_menu(menu_id) {
 }
 
 /*Binding functions to input elements*/
+/*
+ * WA: Avoid chaining of functions while attaching same event to a group
+ * of elements. Declare a wrapper function around show_options, pre_select_options,
+ * clear_added_values and add_nutri_fresh. Attach this wrapper function
+ * on click event to these elements.
+ *
+ * Stop using .live(). Why? See: http://www.elijahmanor.com/2012/02/differences-between-jquery-bind-vs-live.html#tldr
+ *
+ * Please use fast selectors. Going to inputs through #adult_menu_item, #kids_menu_item would have been faster.
+ *
+ */
 $("input[name='adult_menu_item'], input[name='kids_menu_item']").live('click', show_options).live('click', pre_select_options).live('click', clear_added_values).live('click', add_nutri_fresh);
 
 /*Displaying list of items in a particular selected menu.*/
 function show_options() {
+  /*
+   * WA: Following 'if' tells that we should extract out handling
+   * of different menus in different functions. See my above comment
+   * about checking of ids.
+   *
+   */
   if (this.name == "adult_menu_item") {
     $(additional_data[2].menu_hide[0]).addClass("hide");
     $(additional_data[2].menu_hide[1]).addClass("hide");
     $(additional_data[2].menu_hide[3]).removeClass("hide");
     $(additional_data[2].menu_hide[4]).removeClass("hide");
-    var adult = document.getElementsByName("adult_menu_item");
+    var adult = document.getElementsByName("adult_menu_item"); /* WA: Use fast selectors */
+    /*
+     * WA: Do not loop over form inputs to know which was selected/checked.
+     * Use jQuery's .val() function instead. Also look at :selected and
+     * :checked selectors.
+     *
+     */
     for(var i=0; i<adult.length; i++) {
       if (adult[i].checked == true) {
         if (adult[i].value == "BURRITO") {
@@ -119,7 +217,7 @@ function show_options() {
 $("input[name='kids_meat']").live('click', clear_selected_options);
 function clear_selected_options(){
   $.each($("#what_inside").find("input"), function(i,ele){ele.checked = false;});
-  $("#nutri_table").find("tr[id ^='what_item']").remove();
+  $("#nutri_table").find("tr[id ^='what_item']").remove(); /* WA: There are no such elements in mark up whose id starts with 'what_item'. If you are creating it dynamically, reference it dynamically. */
   addition_of_nutrition();
 }
 
@@ -132,7 +230,7 @@ function check_selected_options() {
   for(var i=0; i<radio_selected.length; i++) {
     if(radio_selected[i].checked == true && radio_selected[i].id == "item_Veggies_k") {
       count = 0;
-      for (var i=0; i<a.length; i++) {
+      for (var i=0; i<a.length; i++) { /* WA: A very suitable use of :checked selector can be made here. */
       	if(a[i].checked) {
   				count++;
   			}
@@ -190,6 +288,7 @@ function add_nutri_adult() {
   if(this.checked && this.type == 'checkbox'){
     var name_of_item;
     var row_id;
+    /* WA: REFACTOR */
     if(/Chicken/.test(id)){
       name_of_item = "Chicken";
       row_id = 'item_Chicken1';
@@ -291,6 +390,7 @@ function add_nutri_kids() {
     if(this.checked && this.type == 'checkbox'){
       var name_of_item;
       var row_id;
+      /* WA: REFACTOR */
       if(/White_Rice/.test(id)){
         name_of_item = "Cilantro-Lime Rice (taco)";
         row_id = 'what_item_White_Rice_k2';
@@ -382,6 +482,10 @@ function clear_tab_on_change() {
 
 /*clearing calculated values of nutrition table.*/
 function clear_added_values() {
+  /*
+   * WA: Use $('#nutri_table tr:last').find('td').html('foo')
+   *
+   */
   var total_row = $('#nutri_table tr:last');
   for (var j=2; j<17; j++) {
     total_row.children("td:nth-child("+j+")").each(function(){
@@ -393,13 +497,14 @@ function clear_added_values() {
 /*adding preselected items to table*/
 function add_nutri_fresh() {
   var clear_tab = $("#nutri_table").find("tr[id!='tab']");
+  /* WA: REFACTOR */
   for (var i=0; i<clear_tab.length; i++) {
   	$(clear_tab[i]).remove();
   }
   var name_of_item = [], row_id = [], multiplier, selected_data, food_array;
   if(/kids/.test(this.name)){
     food_array = kids_menu_list;
-    selected_data = $("#kids_menu_one").find("input:checked");
+    selected_data = $("#kids_menu_one").find("input:checked"); /* WA: There you are using :checked slector here. Why not anywhere else? */
   } else if(/adult/.test(this.name)) {
     food_array = adult_menu_list;
     selected_data = $("#adult_menu_one").find("input:checked");
@@ -465,6 +570,7 @@ function add_data_to_table(name_of_item,row_id, data) {
       multiplier = 1;
     }
   }
+      /* WA: REFACTOR */
   for(var j=0; j<food_array.length; j++) {
     var new_row = $("<tr id="+row_id+" onClick = 'remove_row(this)'></tr>");
     if(food_array[j][additional_data[0].array_nutrition[0]] == name_of_item ) {
@@ -499,6 +605,7 @@ function remove_item(element_id) {
 
 /*Addition of nutrition value.*/
 function addition_of_nutrition() {
+      /* WA: REFACTOR */
   var vals =["TOTAL",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   for(var i=2; i<17; i++) {
     var sum = 0;
