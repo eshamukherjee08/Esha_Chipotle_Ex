@@ -31,6 +31,8 @@ var adult_menu_list = [], kids_menu_list = [], additional_data = [];
  * Put these request in jQuery(document).ready block.
  *
  */
+ 
+ //EM: Not able to understand.
 /*
  * WA: Almost always, do not put your markup in your data. We don't gain much from it.
  * Everytime your page loads, a request to your server, which is already
@@ -57,23 +59,16 @@ var adult_menu_list = [], kids_menu_list = [], additional_data = [];
      additional_data.push(k_items);
    });
  });
-
-$(document).ready(function(){
   /*
    * WA: Please loop over array_nutrition instead of looping over
    * a bounded key k. Very much like looping done in Ajax requests
    * made above.
    */
-  $.each(additional_data[0].array_nutrition, function(i,ele){$(".t_header").append("<td>"+ele+"</td>");});
-  for(var k=0;k<15;k++){$(".t_add").append("<td>0</td>");}
-});
-
-
 /*
  * WA: Please don't _ever_ declare functions or variables in global namespace. Use
  * Javascript module pattern instead.
  */
-
+var nutritionFunctions = {}    //namespace
 /*Showing Respective menu item*/
 $("#adult_menu").bind('click', show_adult_menu);
 $("#kids_menu").bind('click', show_kids_menu);
@@ -161,7 +156,7 @@ function show_options() {
     $(additional_data[2].menu_hide[1]).hide();
     $(additional_data[2].menu_hide[3]).show();
     $(additional_data[2].menu_hide[4]).show();
-    // var adult = document.getElementsByName("adult_menu_item"); /* WA: Use fast selectors */
+    /* WA: Use fast selectors */
     /*
      * WA: Do not loop over form inputs to know which was selected/checked.
      * Use jQuery's .val() function instead. Also look at :selected and
@@ -478,11 +473,12 @@ function clear_added_values() {
 
 /*adding preselected items to table*/
 function add_nutri_fresh() {
-  var clear_tab = $("#nutri_table").find("tr[id!='tab']");
+  // var clear_tab = $("#nutri_table").find("tr[id!='tab']");
   /* WA: REFACTOR */
-  for (var i=0; i<clear_tab.length; i++) {
-  	$(clear_tab[i]).remove();
-  }
+  // for (var i=0; i<clear_tab.length; i++) {
+  //  $(clear_tab[i]).remove();
+  // }
+  $.each($("#nutri_table").find("tr[id!='tab']"), function(i,ele){$(ele).remove();});
   var name_of_item = [], row_id = [], multiplier, selected_data, food_array;
   if(/kids/.test(this.name)){
     food_array = kids_menu_list;
