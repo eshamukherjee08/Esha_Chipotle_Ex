@@ -1,3 +1,4 @@
+//AT NAMESPACE//
 /*Global variable to store json data.*/
 
 var adult_menu_list = [], kids_menu_list = [], additional_data = [];
