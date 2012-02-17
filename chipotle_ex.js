@@ -368,9 +368,13 @@ nutritionFunctions.del_servings = function(event, item_id) {
 
 // function to delete row on clicking each row.
 nutritionFunctions.remove_row = function(th) {
-  $("input[id=\'"+th.id+"\']")[0].checked = false;
-  $(th).remove();
-  nutritionFunctions.addition_of_nutrition();
+  if($("input[id=\'"+th.id+"\']")[0] == undefined){  //handling exception in case of row created by radio button.
+    return false;
+  }else{
+    $("input[id=\'"+th.id+"\']")[0].checked = false;
+    $(th).remove();
+    nutritionFunctions.addition_of_nutrition();
+  }
 }
 
 $("#item_No_Item").click(function() {
