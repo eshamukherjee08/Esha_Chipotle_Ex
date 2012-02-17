@@ -36,12 +36,7 @@ $(document).ready(function(){
   for(var i=0; i < t2.length; i++) {
     $(t2[i]).click(nutritionFunctions.show_kids_options);
   }
-  
-  var t3 = $("#what_inside").find("input");
-  for(var i=0; i < t3.length; i++) {
-    $(t3[i]).click([event, t3[i].id], nutritionFunctions.check_selected_options);
-  }
-  
+
   var t4 = $("#adult_menu_one, #kids_menu_one").find("input");
   for(var i=0; i < t4.length; i++) {
     $(t4[i]).click(nutritionFunctions.pre_select_options);
@@ -157,28 +152,6 @@ nutritionFunctions.clear_selected_options = function(){
   nutritionFunctions.addition_of_nutrition();
 }
 
-/*Checking condition of item selection of 2(in case of meat) or 3 (in case of veggie) for kids menu.*/
-
-nutritionFunctions.check_selected_options = function(ele) {
-  var radio_selected = $("input[name='kids_meat']");
-  var count = $("#what_inside").find("input:checked").length;
-  for(var i=0; i<radio_selected.length; i++) {
-    if(radio_selected[i].checked == true && radio_selected[i].id == "item_FajitaVegetables") {
-		  if(count > 3) {
-			  alert("Please select a maximum of 3 fillings!");
-        $("#what_inside").find("input[id='"+ele.data[1]+"']").attr("checked", false);
-        ele.data[0].attr("bubbles", false);
-			}
-    } else if(radio_selected[i].checked == true && radio_selected[i].id != "item_FajitaVegetables") {
-			 if(count > 2) {
-			  alert("Please select a maximum of 2 fillings!");
-        $("#what_inside").find("input[id='"+ele.data[1]+"']").attr("checked", false);
-        ele.data[0].attr("bubbles", false);
-			}
-		}
-  }
-}
-
 /*clearing various selections on change.*/
 nutritionFunctions.clear_selections = function() {
   $.each($("input[type='checkbox']"), function(i,ele){ele.checked = false;});
@@ -221,28 +194,45 @@ nutritionFunctions.add_nutri_kids = function(ele) {
   var name_of_item = /.+_(.+)/g.exec(ele.data[0]);
   var row_id;
   if($("#nutri_table").find("tr[id="+ele.data[0]+"]").length > 0){
-   nutritionFunctions.remove_item(ele.data[0]); 
+    nutritionFunctions.remove_item(ele.data[0]); 
   }else {
+    var radio_selected = $("input[name='kids_meat']");
+    var count = $("#what_inside").find("input:checked").length;
+    for(var i=0; i<radio_selected.length; i++) {
+      if(radio_selected[i].checked == true && radio_selected[i].id == "item_FajitaVegetables") {
+        if(count > 3) {
+       	  alert("Please select a maximum of 3 fillings!");
+          $("#what_inside").find("input[id='"+ele.data[0]+"']").attr("checked", false);
+          return false;
+       	}
+      }else if(radio_selected[i].checked == true && radio_selected[i].id != "item_FajitaVegetables") {
+        if(count > 2) {
+       	  alert("Please select a maximum of 2 fillings!");
+          $("#what_inside").find("input[id='"+ele.data[0]+"']").attr("checked", false);
+          return false;
+       	}
+      }
+    }
     if(ele.data[1] == 'checkbox'){
       row_id = "what_item_"+name_of_item[1];
       nutritionFunctions.add_data_to_table(name_of_item[1],row_id, "kids");
-    } else if(ele.data[1] == 'radio'){
+    }else if(ele.data[1] == 'radio'){
       if((/Chicken/.test(name_of_item[1])) || (/FajitaVegetables/.test(name_of_item[1])) || (/Steak/.test(name_of_item[1])) || (/Barbacoa/.test(name_of_item[1])) || (/Carnitas/.test(name_of_item[1])) || (/Guacamole/.test(name_of_item[1]))){
         row_id = 'kids_meat';
-      } else if((/CilantroLimeRiceSide/.test(name_of_item[1])) || (/BrownRiceSide/.test(name_of_item[1]))) {
+      }else if((/CilantroLimeRiceSide/.test(name_of_item[1])) || (/BrownRiceSide/.test(name_of_item[1]))) {
         row_id = 'side_rice';
-      } else if((/BlackBeansSide/.test(name_of_item[1])) || (/PintoBeansSide/.test(name_of_item[1]))) {
+      }else if((/BlackBeansSide/.test(name_of_item[1])) || (/PintoBeansSide/.test(name_of_item[1]))) {
         row_id = 'side_beans';
-      } else if((/SoftCornTortilla/.test(name_of_item[1])) || (/CrispyCornTortilla/.test(name_of_item[1])) || (/SoftFlourTortilla/.test(name_of_item[1]))) {
+      }else if((/SoftCornTortilla/.test(name_of_item[1])) || (/CrispyCornTortilla/.test(name_of_item[1])) || (/SoftFlourTortilla/.test(name_of_item[1]))) {
         row_id = 'side_taco';
-      } else if((/CheeseSmallQuesadilla/.test(name_of_item[1]))) {
+      }else if((/CheeseSmallQuesadilla/.test(name_of_item[1]))) {
         row_id = 'cheese_small';
-      } else if((/Chips/.test(name_of_item[1]))) {
+      }else if((/Chips/.test(name_of_item[1]))) {
         row_id = 'chips';
       }
       nutritionFunctions.add_data_to_table(name_of_item[1], row_id, "kids");
     }
-  }
+ 	}
 }
 
 /*adding preselected items to table*/
