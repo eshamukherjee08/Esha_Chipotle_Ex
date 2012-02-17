@@ -23,11 +23,6 @@ var adult_menu_list = [], kids_menu_list = [], additional_data = [];
 var nutritionFunctions = {}    //namespace
 
 $(document).ready(function(){
-  // var tester = $("#adult_menu_options").find("input");
-  // for(var i=0; i < tester.length; i++) {
-  //   $(tester[i]).click([tester[i].id,tester[i].type,tester[i].checked], nutritionFunctions.test_fun);
-  // } 
-  
   $("#adult_menu").click(["adult_menu"],nutritionFunctions.show_adult_menu);
   $("#kids_menu").click(["kids_menu"],nutritionFunctions.show_kids_menu);
   $("input[name='kids_meat']").click(nutritionFunctions.clear_selected_options);
@@ -44,7 +39,7 @@ $(document).ready(function(){
   
   var t3 = $("#what_inside").find("input");
   for(var i=0; i < t3.length; i++) {
-    $(t3[i]).click([t3[i].id], nutritionFunctions.check_selected_options);
+    $(t3[i]).click([event, t3[i].id], nutritionFunctions.check_selected_options);
   }
   
   var t4 = $("#adult_menu_one, #kids_menu_one").find("input");
@@ -56,20 +51,15 @@ $(document).ready(function(){
   
   var t5 = $("#adult_menu_options, #adult_regular_menu").find("input");
   for(var i=0; i < t5.length; i++) {
-    $(t5[i]).click([t5[i].id, t5[i].type, t5[i].checked], nutritionFunctions.add_nutri_adult);
+    $(t5[i]).click([t5[i].id, t5[i].type], nutritionFunctions.add_nutri_adult);
   }
   
   var t6 = $("#kids_regular_menu, #kids_third_menu, #kids_menu_options").find("input");
   for(var i=0; i < t6.length; i++) {
-    $(t6[i]).click([t6[i].id, t6[i].type, t6[i].checked], nutritionFunctions.add_nutri_kids);
+    $(t6[i]).click([t6[i].id, t6[i].type], nutritionFunctions.add_nutri_kids);
   }
   
 });
-// nutritionFunctions.test_fun = function(ev) {
-//   console.log(ev.data[0]);
-//   console.log(ev.data[1]);
-//   console.log(ev.data[2]);
-// }
 
 nutritionFunctions.show_adult_menu = function(ele) {
   $("#adult_menu_one").find('input').attr("checked", false);
@@ -176,16 +166,14 @@ nutritionFunctions.check_selected_options = function(ele) {
     if(radio_selected[i].checked == true && radio_selected[i].id == "item_FajitaVegetables") {
 		  if(count > 3) {
 			  alert("Please select a maximum of 3 fillings!");
-			  ele.data[0] = false;
-			  alert(ele.data[0]);
-		    return;
+        $("#what_inside").find("input[id='"+ele.data[1]+"']").attr("checked", false);
+        ele.data[0].attr("bubbles", false);
 			}
     } else if(radio_selected[i].checked == true && radio_selected[i].id != "item_FajitaVegetables") {
-			if(count > 2) {
+			 if(count > 2) {
 			  alert("Please select a maximum of 2 fillings!");
-			  ele.data[0] = false;
-			  alert(ele.data[0]);
-		    return;
+        $("#what_inside").find("input[id='"+ele.data[1]+"']").attr("checked", false);
+        ele.data[0].attr("bubbles", false);
 			}
 		}
   }
@@ -214,50 +202,48 @@ nutritionFunctions.pre_select_options = function() {
 
 /*adding items for adult menu*/
 nutritionFunctions.add_nutri_adult = function(ele) {
-    console.log(ele.data[0]);
-    console.log(ele.data[1]);
-    console.log(ele.data[2]);
-  var name_of_item = /.+_(.+)/g.exec(ele.data[0]);
-    if(ele.data[2] && ele.data[1] == 'checkbox'){
-      alert("1");
+  if($("#nutri_table").find("tr[id="+ele.data[0]+"]").length > 0){
+   nutritionFunctions.remove_item(ele.data[0]); 
+  }else {
+    var name_of_item = /.+_(.+)/g.exec(ele.data[0]);
+    if(ele.data[1] == 'checkbox'){
       var row_id = "item_"+name_of_item[1];
       nutritionFunctions.add_data_to_table(name_of_item[1], row_id, "adult");
-    } else if(ele.data[2] && ele.data[1] == 'radio'){
-      alert("2");
+    } else if(ele.data[1] == 'radio'){
       var row_id ="radio_item";
       nutritionFunctions.add_data_to_table(name_of_item[1], row_id, "adult");
-    }else{
-      nutritionFunctions.remove_item(ele.data[0]);
     }
+  }
 }
 
 /*adding items for kids menu*/
 nutritionFunctions.add_nutri_kids = function(ele) {
   var name_of_item = /.+_(.+)/g.exec(ele.data[0]);
   var row_id;
-  if(ele.data[2] = true && ele.data[1] == 'checkbox'){
-    row_id = "what_item_"+name_of_item[1];
-    nutritionFunctions.add_data_to_table(name_of_item[1],row_id, "kids");
-  } else if(ele.data[2] = true && ele.data[1] == 'radio'){
-    if((/Chicken/.test(name_of_item[1])) || (/FajitaVegetables/.test(name_of_item[1])) || (/Steak/.test(name_of_item[1])) || (/Barbacoa/.test(name_of_item[1])) || (/Carnitas/.test(name_of_item[1])) || (/Guacamole/.test(name_of_item[1]))){
-      row_id = 'kids_meat';
-    } else if((/CilantroLimeRiceSide/.test(name_of_item[1])) || (/BrownRiceSide/.test(name_of_item[1]))) {
-      row_id = 'side_rice';
-    } else if((/BlackBeansSide/.test(name_of_item[1])) || (/PintoBeansSide/.test(name_of_item[1]))) {
-      row_id = 'side_beans';
-    } else if((/SoftCornTortilla/.test(name_of_item[1])) || (/CrispyCornTortilla/.test(name_of_item[1])) || (/SoftFlourTortilla/.test(name_of_item[1]))) {
-      row_id = 'side_taco';
-    } else if((/CheeseSmallQuesadilla/.test(name_of_item[1]))) {
-      row_id = 'cheese_small';
-    } else if((/Chips/.test(name_of_item[1]))) {
-      row_id = 'chips';
+  if($("#nutri_table").find("tr[id="+ele.data[0]+"]").length > 0){
+   nutritionFunctions.remove_item(ele.data[0]); 
+  }else {
+    if(ele.data[1] == 'checkbox'){
+      row_id = "what_item_"+name_of_item[1];
+      nutritionFunctions.add_data_to_table(name_of_item[1],row_id, "kids");
+    } else if(ele.data[1] == 'radio'){
+      if((/Chicken/.test(name_of_item[1])) || (/FajitaVegetables/.test(name_of_item[1])) || (/Steak/.test(name_of_item[1])) || (/Barbacoa/.test(name_of_item[1])) || (/Carnitas/.test(name_of_item[1])) || (/Guacamole/.test(name_of_item[1]))){
+        row_id = 'kids_meat';
+      } else if((/CilantroLimeRiceSide/.test(name_of_item[1])) || (/BrownRiceSide/.test(name_of_item[1]))) {
+        row_id = 'side_rice';
+      } else if((/BlackBeansSide/.test(name_of_item[1])) || (/PintoBeansSide/.test(name_of_item[1]))) {
+        row_id = 'side_beans';
+      } else if((/SoftCornTortilla/.test(name_of_item[1])) || (/CrispyCornTortilla/.test(name_of_item[1])) || (/SoftFlourTortilla/.test(name_of_item[1]))) {
+        row_id = 'side_taco';
+      } else if((/CheeseSmallQuesadilla/.test(name_of_item[1]))) {
+        row_id = 'cheese_small';
+      } else if((/Chips/.test(name_of_item[1]))) {
+        row_id = 'chips';
+      }
+      nutritionFunctions.add_data_to_table(name_of_item[1], row_id, "kids");
     }
-    nutritionFunctions.add_data_to_table(name_of_item[1], row_id, "kids");
-  } else {
-    nutritionFunctions.remove_item(ele.data[0]);
   }
 }
-
 
 /*adding preselected items to table*/
 nutritionFunctions.add_nutri_fresh = function(ele) {
@@ -333,7 +319,7 @@ nutritionFunctions.add_data_to_table = function(name_of_item,row_id, data) {
       new_cell1 = $("<td id = 'title'></td>")
       new_cell1.text(food_array[j][additional_data[0].array_nutrition[0]]);
       if(/adult/.test(data) && (name_of_item == "Chicken" || name_of_item == "Steak" || name_of_item == "Carnitas" || name_of_item == "Barbacoa")){
-        form_div = $("<div class=\"form_div\"><label>Servings</label><input type = \"text\" class = \"serve\" id=\"serve_"+name_of_item+"\" value = \"1\"><span class = \"add\" onClick = \"add_servings(event, this.id);\" id=\"add_"+name_of_item+"\">+</span><span class = \"del\" onClick = \"del_servings(event, this.id);\" id=\"del_"+name_of_item+"\">-</span>")
+        form_div = $("<div class=\"form_div\"><label>Servings</label><input type = \"text\" class = \"serve\" id=\"serve_"+name_of_item+"\" value = \"1\"><span class = \"add\" onClick = \"nutritionFunctions.add_servings(event, this.id);\" id=\"add_"+name_of_item+"\">+</span><span class = \"del\" onClick = \"nutritionFunctions.del_servings(event, this.id);\" id=\"del_"+name_of_item+"\">-</span>")
         new_cell1.append(form_div);
       }
       new_row.append(new_cell1);
@@ -353,7 +339,6 @@ nutritionFunctions.add_data_to_table = function(name_of_item,row_id, data) {
 
 /*Removing unchecked or changed item from nutrition table.*/
 nutritionFunctions.remove_item = function(element_id) {
-  alert(element_id);
   $("#nutri_table").find("tr[id ^="+element_id+"]").remove();
   nutritionFunctions.addition_of_nutrition();
 }
@@ -362,8 +347,8 @@ nutritionFunctions.remove_item = function(element_id) {
 nutritionFunctions.addition_of_nutrition = function() {
   for(var i=2; i<17; i++) {
     var sum = 0;
-    $("#nutri_table").find("tr[id!='tab']").children("td:nth-child("+i+")").each(function(e){
-    sum += parseFloat($(e).html());
+    $("#nutri_table").find("tr[id!='tab']").children("td:nth-child("+i+")").each(function(){
+    sum += parseFloat($(this).html());
     });
     $('#nutri_table tr:last').children("td:nth-child("+i+")").html(sum);
   }
