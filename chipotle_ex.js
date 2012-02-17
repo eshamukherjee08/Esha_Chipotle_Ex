@@ -7,7 +7,7 @@ var adult_menu_list = [], kids_menu_list = [], additional_data = [];
      adult_menu_list.push(a_items);
    });
  });
-
+ 
  $.getJSON('kids_menu.json',function(json) {
    $.each(json,function(i,k_items) {
      kids_menu_list.push(k_items);
@@ -23,6 +23,19 @@ var adult_menu_list = [], kids_menu_list = [], additional_data = [];
 var nutritionFunctions = {}    //namespace
 
 $(document).ready(function(){
+  
+  // $.ajax({
+  //   url: 'adult_menu.json',
+  //   async: false,
+  //   dataType: "jsonp",
+  //   success: function(data){
+  //     $.each(data,function(i,k_items) {
+  //       alert("he");
+  //       adult_menu_list.push(k_items);
+  //     });
+  //   }
+  // });
+  
   $("#adult_menu").click(["adult_menu"],nutritionFunctions.show_adult_menu);
   $("#kids_menu").click(["kids_menu"],nutritionFunctions.show_kids_menu);
   $("input[name='kids_meat']").click(nutritionFunctions.clear_selected_options);
@@ -93,7 +106,7 @@ nutritionFunctions.clear_tab_on_change = function() {
 
 /*clearing calculated values of nutrition table.*/
 nutritionFunctions.clear_added_values = function() {
-  $('#nutri_table tr:last').find("td[id!='total']").html(0);
+  $('#nutri_table tr:last').find("td:gt(0)").html(0);
 }
 
 /*Displaying list of items in a particular selected menu.*/
@@ -175,7 +188,7 @@ nutritionFunctions.pre_select_options = function() {
 
 /*adding items for adult menu*/
 nutritionFunctions.add_nutri_adult = function(ele) {
-  if($("#nutri_table").find("tr[id="+ele.data[0]+"]").length > 0){
+  if($("#nutri_table").find("tr[id="+ele.data[0]+"]").length){
    nutritionFunctions.remove_item(ele.data[0]); 
   }else {
     var name_of_item = /.+_(.+)/g.exec(ele.data[0]);
@@ -193,7 +206,7 @@ nutritionFunctions.add_nutri_adult = function(ele) {
 nutritionFunctions.add_nutri_kids = function(ele) {
   var name_of_item = /.+_(.+)/g.exec(ele.data[0]);
   var row_id;
-  if($("#nutri_table").find("tr[id="+ele.data[0]+"]").length > 0){
+  if($("#nutri_table").find("tr[id="+ele.data[0]+"]").length){
     nutritionFunctions.remove_item(ele.data[0]); 
   }else {
     var radio_selected = $("input[name='kids_meat']");
@@ -316,7 +329,7 @@ nutritionFunctions.add_data_to_table = function(name_of_item,row_id, data) {
       for(var k=1;k<16;k++){
         new_row.append($("<td></td>").text(food_array[j][additional_data[0].array_nutrition[k]]*multiplier));
       }
-      if($("#nutri_table").find("tr[id="+row_id+"]").length > 0){
+      if($("#nutri_table").find("tr[id="+row_id+"]").length){
         $("#nutri_table").find("tr[id="+row_id+"]").replaceWith(new_row);
       } else {
         $('#nutri_table tr:last').before(new_row);
@@ -329,8 +342,7 @@ nutritionFunctions.add_data_to_table = function(name_of_item,row_id, data) {
 
 /*Removing unchecked or changed item from nutrition table.*/
 nutritionFunctions.remove_item = function(element_id) {
-  $("#nutri_table").find("tr[id ^="+element_id+"]").remove();
-  nutritionFunctions.addition_of_nutrition();
+  $("#nutri_table").find("tr[id ^="+element_id+"]").hide('slow', function(){ $("#nutri_table").find("tr[id ^="+element_id+"]").remove();nutritionFunctions.addition_of_nutrition();});
 }
 
 /*Addition of nutrition value.*/
@@ -342,6 +354,8 @@ nutritionFunctions.addition_of_nutrition = function() {
     });
     $('#nutri_table tr:last').children("td:nth-child("+i+")").html(sum);
   }
+  $("tr:odd").css("background-color", "#bbbbff");        //adding css on dynamic row creation.
+  $('#nutri_table tr:last').css("background-color", "yellow");
 }
 
 //function to add servings.
@@ -372,8 +386,7 @@ nutritionFunctions.remove_row = function(th) {
     return false;
   }else{
     $("input[id=\'"+th.id+"\']")[0].checked = false;
-    $(th).remove();
-    nutritionFunctions.addition_of_nutrition();
+    $(th).hide('slow', function(){ $(th).remove(); nutritionFunctions.addition_of_nutrition();});
   }
 }
 
