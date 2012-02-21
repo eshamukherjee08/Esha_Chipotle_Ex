@@ -1,40 +1,52 @@
 /*Global variable to store json data.*/
 
-var adult_menu_list = [], kids_menu_list = [], additional_data = [];
+  var adult_menu_list = [], kids_menu_list = [], additional_data = [];
  /*parsing json data*/
- $.getJSON('adult_menu.json',function(json) {
-   $.each(json,function(i,a_items) {
-     adult_menu_list.push(a_items);
-   });
- });
- 
- $.getJSON('kids_menu.json',function(json) {
-   $.each(json,function(i,k_items) {
-     kids_menu_list.push(k_items);
-   });
- });
- 
- $.getJSON('header_data.json',function(json) {
-   $.each(json,function(i,k_items) {
-     additional_data.push(k_items);
-   });
- });
  
 var nutritionFunctions = {}    //namespace
 
 $(document).ready(function(){
   
-  // $.ajax({
-  //   url: 'adult_menu.json',
-  //   async: false,
-  //   dataType: "jsonp",
-  //   success: function(data){
-  //     $.each(data,function(i,k_items) {
-  //       alert("he");
-  //       adult_menu_list.push(k_items);
-  //     });
-  //   }
-  // });
+  // nutritionFunctions.adult_menu_list = [];
+  // nutritionFunctions.kids_menu_list = [];
+  // nutritionFunctions.additional_data = [];
+  
+  $.ajax({
+    url: 'adult_menu.json',
+    type: 'GET',
+    dataType: "json",
+    success: function(data){
+      $.each(data,function(i,k_items) {
+        adult_menu_list.push(k_items);
+      });
+    }
+  });
+  
+  $.ajax({
+    url: 'kids_menu.json',
+    type: 'GET',
+    dataType: "json",
+    success: function(data){
+      $.each(data,function(i,k_items) {
+        kids_menu_list.push(k_items);
+      });
+    }
+  });
+  
+  $.ajax({
+    url: 'header_data.json',
+    type: 'GET',
+    dataType: "json",
+    success: function(data){
+      $.each(data,function(i,k_items) {
+        additional_data.push(k_items);
+      });
+    }
+  });
+  
+  // console.log(nutritionFunctions.adult_menu_list);
+  // console.log(nutritionFunctions.kids_menu_list);
+  // console.log(nutritionFunctions.additional_data);
   
   $("#adult_menu").click(["adult_menu"],nutritionFunctions.show_adult_menu);
   $("#kids_menu").click(["kids_menu"],nutritionFunctions.show_kids_menu);
