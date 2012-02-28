@@ -53,16 +53,28 @@ $(document).ready(function(){
   $("input[name='kids_meat']").click(nutritionFunctions.clear_selected_options);
   
   var t1 = $("#adult_menu_one").find("input");
+   /*
+    * WA: Lets just stop looping over jquery variables to
+    *     do common operations on all of them at once.
+    */
   for(var i=0; i < t1.length; i++) {
     $(t1[i]).click(nutritionFunctions.show_adult_options);
   }
   
   var t2 = $("#kids_menu_one").find("input");
+   /*
+    * WA: Lets just stop looping over jquery variables to
+    *     do common operations on all of them at once.
+    */
   for(var i=0; i < t2.length; i++) {
     $(t2[i]).click(nutritionFunctions.show_kids_options);
   }
 
   var t4 = $("#adult_menu_one, #kids_menu_one").find("input");
+   /*
+    * WA: Lets just stop looping over jquery variables to
+    *     do common operations on all of them at once.
+    */
   for(var i=0; i < t4.length; i++) {
     $(t4[i]).click(nutritionFunctions.pre_select_options);
     $(t4[i]).click(nutritionFunctions.clear_added_values);
@@ -184,6 +196,10 @@ nutritionFunctions.clear_selections = function() {
 }
 
 nutritionFunctions.clear_selections_kid_block = function() {
+   /*
+    * WA: Lets just stop looping over jquery variables to
+    *     do common operations on all of them at once.
+    */
   $.each($("input[name='kids_meat'], input[name='side_one'], input[name='side_two'], input[name='tacos_1'], input[name='tacos_2'], input[name='side_rice']"), function(i,ele){ele.checked = false;});
 }
 
