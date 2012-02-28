@@ -7,10 +7,6 @@ var nutritionFunctions = {}    //namespace
 
 $(document).ready(function(){
   
-  // nutritionFunctions.adult_menu_list = [];
-  // nutritionFunctions.kids_menu_list = [];
-  // nutritionFunctions.additional_data = [];
-  
   $.ajax({
     url: 'adult_menu.json',
     type: 'GET',
@@ -43,32 +39,21 @@ $(document).ready(function(){
       });
     }
   });
-  
-  // console.log(nutritionFunctions.adult_menu_list);
-  // console.log(nutritionFunctions.kids_menu_list);
-  // console.log(nutritionFunctions.additional_data);
-  
+
   $("#adult_menu").click(["adult_menu"],nutritionFunctions.show_adult_menu);
   $("#kids_menu").click(["kids_menu"],nutritionFunctions.show_kids_menu);
   $("input[name='kids_meat']").click(nutritionFunctions.clear_selected_options);
   
-  var t1 = $("#adult_menu_one").find("input");
+  $("#adult_menu_one").find("input").click(nutritionFunctions.show_adult_options);
    /*
     * WA: Lets just stop looping over jquery variables to
     *     do common operations on all of them at once.
     */
-  for(var i=0; i < t1.length; i++) {
-    $(t1[i]).click(nutritionFunctions.show_adult_options);
-  }
-  
-  var t2 = $("#kids_menu_one").find("input");
+  $("#kids_menu_one").find("input").click(nutritionFunctions.show_kids_options);
    /*
     * WA: Lets just stop looping over jquery variables to
     *     do common operations on all of them at once.
     */
-  for(var i=0; i < t2.length; i++) {
-    $(t2[i]).click(nutritionFunctions.show_kids_options);
-  }
 
   var t4 = $("#adult_menu_one, #kids_menu_one").find("input");
    /*
@@ -125,7 +110,7 @@ nutritionFunctions.change_visible_menu = function(menu_id) {
 
 /*clearing nutrition table data*/
 nutritionFunctions.clear_tab_on_change = function() {
-  $.each($("#nutri_table").find("tr[id!='tab']"), function(i,ele){$(ele).remove();});
+  $("#nutri_table").find("tr[id!='tab']").remove();
 }
 
 /*clearing calculated values of nutrition table.*/
@@ -191,8 +176,7 @@ nutritionFunctions.clear_selected_options = function(){
 
 /*clearing various selections on change.*/
 nutritionFunctions.clear_selections = function() {
-  $.each($("input[type='checkbox']"), function(i,ele){ele.checked = false;});
-  $.each($("input[name='tacos_3']"), function(i,ele){ele.checked = false;});
+  $("input[type='checkbox'], input[name='tacos_3']").attr("checked", false);
 }
 
 nutritionFunctions.clear_selections_kid_block = function() {
@@ -200,7 +184,7 @@ nutritionFunctions.clear_selections_kid_block = function() {
     * WA: Lets just stop looping over jquery variables to
     *     do common operations on all of them at once.
     */
-  $.each($("input[name='kids_meat'], input[name='side_one'], input[name='side_two'], input[name='tacos_1'], input[name='tacos_2'], input[name='side_rice']"), function(i,ele){ele.checked = false;});
+  $("input[name='kids_meat'], input[name='side_one'], input[name='side_two'], input[name='tacos_1'], input[name='tacos_2'], input[name='side_rice']").attr("checked", false);
 }
 
 
@@ -240,13 +224,13 @@ nutritionFunctions.add_nutri_kids = function(ele) {
     var radio_selected = $("input[name='kids_meat']");
     var count = $("#what_inside").find("input:checked").length;
     for(var i=0; i<radio_selected.length; i++) {
-      if(radio_selected[i].checked == true && radio_selected[i].id == "item_FajitaVegetables") {
+      if(radio_selected[i].checked && radio_selected[i].id == "item_FajitaVegetables") {
         if(count > 3) {
        	  alert("Please select a maximum of 3 fillings!");
           $("#what_inside").find("input[id='"+ele.data[0]+"']").attr("checked", false);
           return false;
        	}
-      }else if(radio_selected[i].checked == true && radio_selected[i].id != "item_FajitaVegetables") {
+      }else if(radio_selected[i].checked && radio_selected[i].id != "item_FajitaVegetables") {
         if(count > 2) {
        	  alert("Please select a maximum of 2 fillings!");
           $("#what_inside").find("input[id='"+ele.data[0]+"']").attr("checked", false);
@@ -278,53 +262,38 @@ nutritionFunctions.add_nutri_kids = function(ele) {
 
 /*adding preselected items to table*/
 nutritionFunctions.add_nutri_fresh = function(ele) {
-  $.each($("#nutri_table").find("tr[id!='tab']"), function(i,ele){$(ele).remove();});
-  var name_of_item = [], row_id = [], multiplier, selected_data, food_array;
+  /*
+  * WA: Exract different parameters here and passs it to a function
+        that handles the addition to table.
+        */
+  $("#nutri_table").find("tr[id!='tab']").remove();
+  var name_of_item = [], row_id = [], selected_data;
   if(/kids/.test(ele.data[0])){
-    food_array = kids_menu_list;
     selected_data = $("#kids_menu_one").find("input:checked");
   } else if(/adult/.test(ele.data[0])) {
-    food_array = adult_menu_list;
     selected_data = $("#adult_menu_one").find("input:checked");;
   }
   if (selected_data[0].value == "SMALL QUESADILLA MEAL") {
     name_of_item =["SoftFlourTortilla","CheeseSmallQuesadilla","CilantroLimeRiceSide","BlackBeansSide","Chips"];
     row_id =['flour_taco','cheese_small','side_rice','side_beans','chips'];
-    multiplier = 1;
   } else if (selected_data[0].value == "SINGLE TACO MEAL" || selected_data[0].value == "TWO TACO KIT") {
     name_of_item = ["CrispyCornTortilla","Chicken","CilantroLimeRiceSide","Chips"];
     row_id =['side_taco','kids_meat','side_rice','chips'];
     if(selected_data[0].value == "TWO TACO KIT") {
-      multiplier = 2;
-    } else {
-      multiplier = 1;
-    }
+    } 
   } else if (selected_data[0].value == "BURRITO") {
     name_of_item = ["FlourTortillaBurrito"];
-    multiplier = 1;
     row_id = ['radio_item'];
   } else if (selected_data[0].value == "TACOS") {
     name_of_item = ["CrispyCornTortilla"];
     row_id = ['radio_item'];
-    multiplier = 3;
   } else if (selected_data[0].value == "SALAD") {
     name_of_item = ["RomaineLettuceSalad"];
     row_id = ['radio_item'];
-    multiplier = 1;
   }
-  for(var j=0; j<food_array.length; j++) {
-    for(var k=0; k<name_of_item.length; k++) {
-      var new_row = $("<tr id="+row_id[k]+"></tr>");
-      if(food_array[j][additional_data[0].array_nutrition[0]] == name_of_item[k] ) {
-        new_row.append($("<td id = 'title'></td>").text(food_array[j][additional_data[0].array_nutrition[0]]));
-        for(var k=1;k<16;k++){
-          new_row.append($("<td></td>").text(food_array[j][additional_data[0].array_nutrition[k]]*multiplier));
-        }
-        $('#nutri_table tr:last').before(new_row);
-        nutritionFunctions.addition_of_nutrition();
-        break;
-      }
-    }
+  
+  for(var k=0; k<name_of_item.length; k++) {
+    nutritionFunctions.add_data_to_table(name_of_item[k], row_id[k], ele.data[0])
   }
 }
 
@@ -332,17 +301,15 @@ nutritionFunctions.add_nutri_fresh = function(ele) {
 nutritionFunctions.add_data_to_table = function(name_of_item,row_id, data) {
   var food_array;
   if(/kids/.test(data)){
-    if($("input[name='kids_menu_item']")[2].checked == true && (name_of_item == 'SoftCornTortilla' || name_of_item == 'CrispyCornTortilla' || name_of_item == 'SoftFlourTortilla')) {
+    if($("input[name='kids_menu_item']")[2].checked && (name_of_item == 'SoftCornTortilla' || name_of_item == 'CrispyCornTortilla' || name_of_item == 'SoftFlourTortilla')) {
       multiplier = 2;
     } else { multiplier = 1; }
     food_array = kids_menu_list;
   } else {
     food_array = adult_menu_list;
-    if (name_of_item == "CrispyCornTortilla" || name_of_item == "FlourTortillaTaco" || name_of_item == "SoftCornTortilla"){
+    if ($("input[name='adult_menu_item']")[2].checked && (name_of_item == 'SoftCornTortilla' || name_of_item == 'CrispyCornTortilla' || name_of_item == 'SoftFlourTortilla')){
       multiplier = 3;
-    } else {
-      multiplier = 1;
-    }
+    } else { multiplier = 1;}
   }
   for(var j=0; j<food_array.length; j++) {
     var new_row = $("<tr id="+row_id+" onClick = 'nutritionFunctions.remove_row(this)'></tr>");
@@ -357,15 +324,18 @@ nutritionFunctions.add_data_to_table = function(name_of_item,row_id, data) {
       for(var k=1;k<16;k++){
         new_row.append($("<td></td>").text(food_array[j][additional_data[0].array_nutrition[k]]*multiplier));
       }
-      if($("#nutri_table").find("tr[id="+row_id+"]").length){
-        $("#nutri_table").find("tr[id="+row_id+"]").replaceWith(new_row);
-      } else {
-        $('#nutri_table tr:last').before(new_row);
-      }
-      nutritionFunctions.addition_of_nutrition();
+        /*
+        *WA: Try to append new elements outside of a loop
+        */
       break;
     }
   }
+  if($("#nutri_table").find("tr[id="+row_id+"]").length){
+    $("#nutri_table").find("tr[id="+row_id+"]").replaceWith(new_row);
+  } else {
+    $('#nutri_table tr:last').before(new_row);
+  }
+  nutritionFunctions.addition_of_nutrition();
 }
 
 /*Removing unchecked or changed item from nutrition table.*/
@@ -382,8 +352,8 @@ nutritionFunctions.addition_of_nutrition = function() {
     });
     $('#nutri_table tr:last').children("td:nth-child("+i+")").html(sum);
   }
-  $("tr:odd").css("background-color", "#bbbbff");        //adding css on dynamic row creation.
-  $('#nutri_table tr:last').css("background-color", "yellow");
+  $("tr:odd").addClass("odd_row");        //adding css on dynamic row creation.
+  $('#nutri_table tr:last').addClass("last_row");
 }
 
 //function to add servings.

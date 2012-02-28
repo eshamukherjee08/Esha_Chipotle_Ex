@@ -202,3 +202,11 @@ border:1px solid black;
   font-size:12px;
   padding:3px;
   margin-top:4px;}
+  
+.odd_row{
+  background-color : #bbbbff;
+}
+
+.last_row{
+  background-color : yellow;
+}
